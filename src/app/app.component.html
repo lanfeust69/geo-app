@@ -1,9 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <img id="world" src="assets/world.svg">
+  <div id="world" #world (click)="onClick($event)"></div>
   <div class="main-form">
     <h1>{{country}}</h1>
     <h2>{{capital}}</h2>
     <img *ngIf="flag" id="flag" style="width: 20%" [src]="flag">
+    <div *ngIf="sumScores > 0"><button (click)="onHelp($event)">Help</button></div>
+    <div>Remaining : {{sumScores}}</div>
+    <div>{{time}}</div>
   </div>
 </div>

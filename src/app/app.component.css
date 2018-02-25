@@ -1,0 +1,13 @@
+.main-form {
+    float: left;
+    position: absolute;
+    left: 40%;
+    top: 72%;
+    width: 30%;
+    height: 20%;
+    z-index: 1000;
+    /* background-color: #92AD40; */
+    padding: 5px;
+    /* color: #FFFFFF; */
+    /* font-weight: bold; */
+ }

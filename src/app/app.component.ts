@@ -16,10 +16,13 @@ interface Country {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit, OnInit {
+  withCountry = false;
+  withCapital = false;
   current: number;
   country: string;
   capital: string;
   flag: string;
+  zoomFlag = false;
   highlighted: NodeListOf<Element>;
 
   isoCodes: string[] = [];
@@ -29,6 +32,8 @@ export class AppComponent implements AfterViewInit, OnInit {
   sumScores: number;
   started: Date;
   time: string;
+  nbErrors = 0;
+  nbHelp = 0;
 
   @ViewChild('world') worldElem: ElementRef;
   worldSvg: SVGElement;
@@ -88,10 +93,8 @@ export class AppComponent implements AfterViewInit, OnInit {
   highlighCountry(code: string) {
     const world = this.worldElem.nativeElement as Element;
     this.highlighted = world.querySelectorAll(`.${code}`);
-    for (let i = 0; i < this.highlighted.length; i++) {
-      console.log('highlighting, ', this.highlighted[i]);
+    for (let i = 0; i < this.highlighted.length; i++)
       this._renderer.addClass(this.highlighted[i], 'highlighted');
-    }
   }
 
   setRandomCountry() {
@@ -128,6 +131,7 @@ export class AppComponent implements AfterViewInit, OnInit {
           } else {
             this.scores[this.current]++;
             this.sumScores++;
+            this.nbErrors++;
           }
         }
         return;
@@ -141,6 +145,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.highlighCountry(this.isoCodes[this.current]);
     this.scores[this.current] += 3;
     this.sumScores += 3;
+    this.nbHelp++;
   }
 
   setTime() {

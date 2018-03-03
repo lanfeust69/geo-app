@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { interval } from 'rxjs/observable/interval';
@@ -20,6 +20,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   country: string;
   capital: string;
   flag: string;
+  highlighted: NodeListOf<Element>;
 
   isoCodes: string[] = [];
   countries: { [index: string]: Country } = {};
@@ -33,7 +34,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   worldSvg: SVGElement;
   worldSvgText: string;
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private _renderer: Renderer2) {}
 
   ngOnInit() {
     this._http.get('assets/world.svg', { responseType: 'text' }).subscribe(svgText => {
@@ -77,6 +78,20 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.country = country.name;
     this.capital = country.capitals.join(' ou ');
     this.flag = country.flag;
+    if (this.highlighted) {
+      for (let i = 0; i < this.highlighted.length; i++)
+        this._renderer.removeClass(this.highlighted[i], 'highlighted');
+      this.highlighted = null;
+    }
+  }
+
+  highlighCountry(code: string) {
+    const world = this.worldElem.nativeElement as Element;
+    this.highlighted = world.querySelectorAll(`.${code}`);
+    for (let i = 0; i < this.highlighted.length; i++) {
+      console.log('highlighting, ', this.highlighted[i]);
+      this._renderer.addClass(this.highlighted[i], 'highlighted');
+    }
   }
 
   setRandomCountry() {
@@ -104,6 +119,7 @@ export class AppComponent implements AfterViewInit, OnInit {
         console.log(this.countries[clicked].name);
         if (this.sumScores === 0) {
           this.setCountry(clicked);
+          this.highlighCountry(clicked);
         } else {
           if (clicked === this.isoCodes[this.current]) {
             this.scores[this.current]--;
@@ -122,7 +138,9 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   onHelp(event: MouseEvent) {
-    this.setRandomCountry();
+    this.highlighCountry(this.isoCodes[this.current]);
+    this.scores[this.current] += 3;
+    this.sumScores += 3;
   }
 
   setTime() {

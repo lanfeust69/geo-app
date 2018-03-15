@@ -1,0 +1,200 @@
+/*
+* Below are Cascading Style Sheet (CSS) definitions in use in this file,
+* which allow easily changing how countries are displayed.
+*
+*/
+
+/*
+* Circles around small countries
+*
+* Change opacity to 1 to display all circles.
+*
+*/
+.circlexx
+{
+    opacity:0;
+    fill:#e0e0e0;
+    stroke:#000000;
+    stroke-width:0.5;
+}
+.circlexx:hover
+{
+    stroke-width:2;
+}
+
+/*
+* Smaller circles around French DOMs and Chinese SARs
+*
+* Change opacity to 1 to display all subnational circles.
+*
+*/
+.subxx
+{
+    opacity:0;
+    stroke-width:0.3;
+}
+
+
+/*
+* Circles around small countries, but with no permanent residents 
+*
+* Change opacity to 1 to display all circles.
+*
+*/
+.noxx
+{
+    opacity:0;
+    fill:#e0e0e0;
+    stroke:#000000;
+    stroke-width:0.5;
+}
+
+/*
+* land
+*/
+.landxx
+{
+    fill: #fefed0;
+    stroke:#646464;
+    stroke-width:0.5;
+    fill-rule:evenodd;
+}
+.landxx:hover path, .coastxx:hover path,
+path.landxx:hover, path.coastxx:hover
+{
+    fill: #d0d0b0;
+}
+
+/*
+* Styles for coastlines of islands with no borders
+*/
+.coastxx
+{
+    fill: #fefed0;
+    stroke:#646464;
+    stroke-width:0.6;
+    fill-rule:evenodd;
+}
+
+
+/*
+* Styles for territories with limited or no recognition
+*/
+.limitxx
+{
+    fill: #fefed0;
+    stroke:#ffffff;
+    stroke-width:0;
+    fill-rule:evenodd;
+}
+
+/*
+* Circles around small territories with limited or no recognition
+*
+* Change opacity to 1 to display all circles.
+*
+*/
+.unxx
+{
+    opacity:0;
+    fill:#e0e0e0;
+    stroke:#000000;
+    stroke-width:0.3;
+}
+
+
+/*
+* Styles for territories without permanent population.
+*/
+.antxx
+{
+    fill: #e0e0e0;
+    stroke:#ffffff;
+    stroke-width:0;
+    fill-rule:evenodd;
+}
+
+/*
+* Oceans and seas
+*/
+.oceanxx
+{
+    opacity: 1;
+    color: #000000;
+    fill:#9ec7f3;
+    stroke:#000;
+    stroke-width:0.5;
+    stroke-miterlimit:1;
+}
+
+/*
+
+Reserved class names:
+
+.eu - for members of European Union
+.eaeu - for members of Euroasian Economical Union
+
+*/
+
+/* Small countries or islands that need a circle */
+.circlexx.ad, .circlexx.li, .circlexx.lu, .circlexx.mt, .circlexx.mc, .circlexx.sm, .circlexx.va,  /* Europe */
+.circlexx.cv, .circlexx.km, .circlexx.mu, .circlexx.st, .circlexx.sc,  /* Africa */
+.circlexx.ag, .circlexx.aw, .circlexx.bs, .circlexx.bb, .circlexx.dm, .circlexx.gd, .circlexx.kn, .circlexx.lc, .circlexx.vc, .circlexx.tt,  /* Carribeans */
+.circlexx.fj, .circlexx.ck, .circlexx.mh, .circlexx.ki, .circlexx.fm, .circlexx.nr, .circlexx.nu, .circlexx.pw, .circlexx.ws, .circlexx.to, .circlexx.tv, .circlexx.vu,  /* Oceania */
+.circlexx.bh, .circlexx.bn, .circlexx.mv, .circlexx.ps, .circlexx.sg  /* Others */
+{
+    opacity:    1;
+    fill-opacity: 0;
+}
+
+.highlighted
+{
+    fill:#ff0000;
+}
+
+.circlexx.highlighted
+{
+    stroke:#ff0000;
+    stroke-width:2;
+}
+
+/*
+* Additional style rules
+*
+* The following are examples of colouring countries.  You can substitute these with your own styles to colour the countries on the map.
+*
+* Color a few countries:
+*
+* .gb, .au, .nc
+* {
+*    fill:       #ff0000;
+* }
+*
+* Color a few small country circles (and the countries):
+*
+* .ms, .ky
+* {
+*    opacity:    1;
+*    fill:       #ff0000;
+* }
+*
+*/
+
+.big-flag {
+    position: fixed;
+    left: 20%;
+    top: 10%;
+    width: 60%;
+    height: 60%;
+    z-index: 10000;
+    padding: 5px;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+  }
+
+.big-flag img {
+    height: 100%;
+    border:1px solid #000000;
+    box-shadow: 10px 10px 5px 0px gray;
+}

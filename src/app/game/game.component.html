@@ -1,0 +1,18 @@
+<div class="main-form">
+  <h1 *ngIf="withCountry">{{country}}</h1>
+  <h2 *ngIf="withCapital">{{capital}}</h2>
+  <img *ngIf="flag" id="flag" [src]="flag" style="width: 100%"
+    title="click to enlarge" (click)="zoomFlagEvent.next(flag)">
+  <div>
+    <button *ngIf="sumScores > 0 && !highlighted" (click)="onHelp($event)">Help</button>
+    &nbsp;{{nbHelp}} helps, {{nbErrors}} errors
+  </div>
+  <div *ngIf="sumScores > 0">Remaining : {{sumScores}}</div>
+  <div>{{time}}</div>
+  <label>
+    <input type="checkbox" [(ngModel)]="withCountry" /> Country
+  </label>
+  <label>
+    <input type="checkbox" [(ngModel)]="withCapital" /> Capital
+  </label>
+</div>

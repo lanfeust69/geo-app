@@ -14,6 +14,14 @@ export class HomeComponent {
   highlighted: NodeListOf<Element>;
   flag: string;
   flagZoomed = false;
+  vX0 = -40;
+  vY0 = 60;
+  vW0 = 2780;
+  vH0 = 1400;
+  vX = 0;
+  vY = 0;
+  vW = this.vW0;
+  vH = this.vH0;
 
   constructor(private _renderer: Renderer2) { }
 
@@ -37,6 +45,8 @@ export class HomeComponent {
         this._renderer.removeClass(this.highlighted[i], 'highlighted');
       this.highlighted = null;
     }
+    if (!countryCode)
+      return;
     const world = this.worldElem.nativeElement as Element;
     this.highlighted = world.querySelectorAll(`.${countryCode}`);
     for (let i = 0; i < this.highlighted.length; i++)
@@ -46,5 +56,45 @@ export class HomeComponent {
   zoomFlag(flag) {
     this.flag = flag;
     this.flagZoomed = true;
+  }
+
+  onWheel(event: WheelEvent) {
+    const el = this.worldElem.nativeElement as HTMLElement;
+    const relX = event.offsetX / el.clientWidth;
+    const relY = event.offsetY / el.clientHeight;
+    if (event.deltaY < 0) {
+      const dW = this.vW * 0.05;
+      this.vW -= dW;
+      this.vX += dW * relX;
+      const dH = this.vH * 0.05;
+      this.vH -= dH;
+      this.vY += dH * relY;
+    } else {
+      const dW = this.vW * 0.05;
+      if (this.vW + dW >= this.vW0) {
+        this.vX = 0;
+        this.vY = 0;
+        this.vW = this.vW0;
+        this.vH = this.vH0;
+        return;
+      }
+      this.vW += dW;
+      this.vX -= dW * relX;
+      if (this.vX < 0)
+        this.vX = 0;
+      if (this.vX + this.vW > this.vW0)
+        this.vX = this.vW0 - this.vW;
+      const dH = this.vH * 0.05;
+      this.vH += dH;
+      this.vY -= dH * relY;
+      if (this.vY < 0)
+        this.vY = 0;
+      if (this.vY + this.vH > this.vH0)
+        this.vY = this.vH0 - this.vH;
+    }
+  }
+
+  get viewBox() {
+    return `${this.vX0 + this.vX} ${this.vY0 + this.vY} ${this.vW} ${this.vH}`;
   }
 }

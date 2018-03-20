@@ -6,3 +6,11 @@
 button {
     font-size: 120%;
 }
+
+select {
+    font-size: 120%;
+}
+
+select option {
+    font-size: 50%;
+}

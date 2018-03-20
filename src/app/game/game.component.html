@@ -6,7 +6,12 @@
   <div>
     <button *ngIf="sumScores > 0 && !highlighted" (click)="help()">Help</button>
     <button *ngIf="sumScores > 0" (click)="explore()">Explore</button>
-    <button *ngIf="sumScores === 0" (click)="play()">Play</button>
+    <div *ngIf="sumScores === 0">
+      <button (click)="play()">Play</button>
+      <select [(ngModel)]="playScope">
+          <option *ngFor="let s of playScopes">{{s}}</option>
+        </select>
+    </div>
   </div>
   <div>
     {{nbHelp}} help{{nbHelp &gt; 1 ? 's' : ''}}, {{nbErrors}} error{{nbErrors &gt; 1 ? 's' : ''}}

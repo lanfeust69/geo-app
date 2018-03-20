@@ -8,6 +8,8 @@ interface Country {
   name: string;
   capitals: string[];
   flag: string;
+  continent: string;
+  rank: number;
 }
 
 @Component({
@@ -29,6 +31,8 @@ export class GameComponent implements OnInit {
   isoCodes: string[] = [];
   countries: { [index: string]: Country } = {};
 
+  playScopes = ['All', 'Top 100', 'Top 50', 'Africa', 'America', 'Asia', 'Europe', 'Oceania'];
+  playScope = 'All';
   scores: number[];
   sumScores: number;
   started: Date;
@@ -41,14 +45,14 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     this._http.get('assets/data.csv', { responseType: 'text' }).subscribe(data => {
       for (const line of data.split(/\r?\n/)) {
-        const [name, capital, flag, isoCode] = line.split(/;/);
+        const [name, capital, flag, isoCode, continent, rank] = line.split(/;/);
         if (!isoCode)
           continue;
         if (isoCode in this.countries) {
           this.countries[isoCode].capitals.push(capital);
         } else {
           this.isoCodes.push(isoCode);
-          this.countries[isoCode] = { isoCode, name, capitals: [capital], flag: `assets/flags/${flag}.svg` };
+          this.countries[isoCode] = { isoCode, name, capitals: [capital], flag: `assets/flags/${flag}.svg`, continent, rank: +rank };
         }
       }
       this.play();
@@ -118,11 +122,29 @@ export class GameComponent implements OnInit {
   play() {
     this.started = undefined;
     this.time = undefined;
-    this.scores = this.isoCodes.map(_ => 1);
-    this.sumScores = this.scores.length;
+    const filter = this.getFilter();
+    this.scores = this.isoCodes.map(c => filter(this.countries[c]) ? 1 : 0);
+    this.sumScores = this.scores.reduce((acc, s) => acc + s);
     this.nbHelp = 0;
     this.nbErrors = 0;
     this.setRandomCountry();
+  }
+
+  getFilter(): (Country) => boolean {
+    switch (this.playScope) {
+      case 'All':
+        return (c: Country) => true;
+      case 'Top 100':
+        return (c: Country) => c.rank <= 100;
+      case 'Top 50':
+        return (c: Country) => c.rank <= 50;
+      case 'Africa':
+      case 'America':
+      case 'Asia':
+      case 'Europe':
+      case 'Oceania':
+        return (c: Country) => c.continent === this.playScope;
+    }
   }
 
   setTime() {

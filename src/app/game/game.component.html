@@ -4,8 +4,12 @@
   <img *ngIf="flag" id="flag" [src]="flag" style="width: 100%"
     title="click to enlarge" (click)="zoomFlagEvent.next(flag)">
   <div>
-    <button *ngIf="sumScores > 0 && !highlighted" (click)="onHelp($event)">Help</button>
-    &nbsp;{{nbHelp}} helps, {{nbErrors}} errors
+    <button *ngIf="sumScores > 0 && !highlighted" (click)="help()">Help</button>
+    <button *ngIf="sumScores > 0" (click)="explore()">Explore</button>
+    <button *ngIf="sumScores === 0" (click)="play()">Play</button>
+  </div>
+  <div>
+    {{nbHelp}} help{{nbHelp &gt; 1 ? 's' : ''}}, {{nbErrors}} error{{nbErrors &gt; 1 ? 's' : ''}}
   </div>
   <div *ngIf="sumScores > 0">Remaining : {{sumScores}}</div>
   <div>{{time}}</div>

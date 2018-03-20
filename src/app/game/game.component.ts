@@ -51,9 +51,7 @@ export class GameComponent implements OnInit {
           this.countries[isoCode] = { isoCode, name, capitals: [capital], flag: `assets/flags/${flag}.svg` };
         }
       }
-      this.scores = this.isoCodes.map(_ => 1);
-      this.sumScores = this.scores.length;
-      this.setRandomCountry();
+      this.play();
     });
     interval(500).subscribe(_ => this.setTime());
   }
@@ -63,7 +61,7 @@ export class GameComponent implements OnInit {
     this.country = country.name;
     this.capital = country.capitals.join(' ou ');
     this.flag = country.flag;
-    this.highlightCountry("");
+    this.highlightCountry('');
   }
 
   highlightCountry(countryCode: string) {
@@ -104,11 +102,27 @@ export class GameComponent implements OnInit {
     }
   }
 
-  onHelp(event: MouseEvent) {
+  help() {
     this.highlightCountry(this.isoCodes[this.current]);
     this.scores[this.current] += 3;
     this.sumScores += 3;
     this.nbHelp++;
+  }
+
+  explore() {
+    this.highlightCountry(this.isoCodes[this.current]);
+    this.started = undefined;
+    this.sumScores = 0;
+  }
+
+  play() {
+    this.started = undefined;
+    this.time = undefined;
+    this.scores = this.isoCodes.map(_ => 1);
+    this.sumScores = this.scores.length;
+    this.nbHelp = 0;
+    this.nbErrors = 0;
+    this.setRandomCountry();
   }
 
   setTime() {

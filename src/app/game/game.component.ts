@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { interval } from 'rxjs/observable/interval';
+import { interval } from 'rxjs';
 
 interface Country {
   isoCode: string;

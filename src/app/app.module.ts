@@ -1,24 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import {
+  MatButtonModule, MatCheckboxModule, MatDialogModule, MatDividerModule, MatIconModule, MatSelectModule
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    GameComponent
+    GameComponent,
+    SettingsComponent
   ],
+  entryComponents: [SettingsComponent],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatIconModule,
+    MatSelectModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

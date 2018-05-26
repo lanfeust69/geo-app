@@ -1,7 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { interval } from 'rxjs';
+
+import { PlayScope, Settings } from '../settings';
 
 interface Country {
   isoCode: string;
@@ -13,16 +15,16 @@ interface Country {
 }
 
 @Component({
+  // tslint:disable-next-line:component-selector : necessary to embed the component in svg
   selector: '[app-game]',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
+  @Input() settings: Settings;
   @Output() highlightCountryEvent = new EventEmitter<string>();
   @Output() zoomFlagEvent = new EventEmitter<string>();
 
-  withCountry = false;
-  withCapital = false;
   current: number;
   country: string;
   capital: string;
@@ -31,8 +33,7 @@ export class GameComponent implements OnInit {
   isoCodes: string[] = [];
   countries: { [index: string]: Country } = {};
 
-  playScopes = ['All', 'Top 100', 'Top 50', 'Africa', 'America', 'Asia', 'Europe', 'Oceania'];
-  playScope = 'All';
+  playScope: PlayScope = 'All';
   scores: number[];
   sumScores: number;
   started: Date;
@@ -120,6 +121,7 @@ export class GameComponent implements OnInit {
   }
 
   play() {
+    this.playScope = this.settings.playScope;
     this.started = undefined;
     this.time = undefined;
     const filter = this.getFilter();

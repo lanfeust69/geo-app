@@ -138,7 +138,7 @@ Reserved class names:
 
 /* Small countries or islands that need a circle */
 .circlexx.ad, .circlexx.li, .circlexx.lu, .circlexx.mt, .circlexx.mc, .circlexx.sm, .circlexx.va,  /* Europe */
-.circlexx.cv, .circlexx.km, .circlexx.mu, .circlexx.st, .circlexx.sc,  /* Africa */
+.circlexx.cv, .circlexx.gm, .circlexx.km, .circlexx.mu, .circlexx.sc, .circlexx.st, .circlexx.sc,  /* Africa */
 .circlexx.ag, .circlexx.aw, .circlexx.bs, .circlexx.bb, .circlexx.dm, .circlexx.gd, .circlexx.kn, .circlexx.lc, .circlexx.vc, .circlexx.tt,  /* Carribeans */
 .circlexx.fj, .circlexx.ck, .circlexx.mh, .circlexx.ki, .circlexx.fm, .circlexx.nr, .circlexx.nu, .circlexx.pw, .circlexx.ws, .circlexx.to, .circlexx.tv, .circlexx.vu,  /* Oceania */
 .circlexx.bh, .circlexx.bn, .circlexx.mv, .circlexx.ps, .circlexx.sg  /* Others */
@@ -197,4 +197,10 @@ Reserved class names:
     height: 100%;
     border:1px solid #000000;
     box-shadow: 10px 10px 5px 0px gray;
+}
+
+#menu-button-div {
+    position: absolute;
+    top: 20;
+    left: 20;
 }

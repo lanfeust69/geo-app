@@ -1,16 +1,13 @@
 <div class="main-form">
-  <h1 *ngIf="withCountry">{{country}}</h1>
-  <h2 *ngIf="withCapital">{{capital}}</h2>
-  <img *ngIf="flag" id="flag" [src]="flag" style="width: 100%"
+  <img *ngIf="flag && settings.showFlag" id="flag" [src]="flag" style="width: 100%"
     title="click to enlarge" (click)="zoomFlagEvent.next(flag)">
+  <h1 *ngIf="settings.showName">{{country}}</h1>
+  <h2 *ngIf="settings.showCapital">{{capital}}</h2>
   <div>
     <button *ngIf="sumScores > 0 && !highlighted" (click)="help()">Help</button>
     <button *ngIf="sumScores > 0" (click)="explore()">Explore</button>
     <div *ngIf="sumScores === 0">
       <button (click)="play()">Play</button>
-      <select [(ngModel)]="playScope">
-          <option *ngFor="let s of playScopes">{{s}}</option>
-        </select>
     </div>
   </div>
   <div>
@@ -18,10 +15,4 @@
   </div>
   <div *ngIf="sumScores > 0">Remaining : {{sumScores}}</div>
   <div>{{time}}</div>
-  <label>
-    <input type="checkbox" [(ngModel)]="withCountry" /> Country
-  </label>
-  <label>
-    <input type="checkbox" [(ngModel)]="withCapital" /> Capital
-  </label>
 </div>

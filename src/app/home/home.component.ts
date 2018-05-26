@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 import { GameComponent } from '../game/game.component';
+import { SettingsComponent } from '../settings/settings.component';
+
+import { Settings } from '../settings';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +14,8 @@ import { GameComponent } from '../game/game.component';
 export class HomeComponent {
   @ViewChild('game') game: GameComponent;
   @ViewChild('world') worldElem: ElementRef;
+
+  gameSettings = new Settings();
 
   highlighted: NodeListOf<Element>;
   flag: string;
@@ -23,7 +29,7 @@ export class HomeComponent {
   vW = this.vW0;
   vH = this.vH0;
 
-  constructor(private _renderer: Renderer2) { }
+  constructor(private _renderer: Renderer2, private _dialog: MatDialog) { }
 
   onClick(event: MouseEvent) {
     let current = event.target as HTMLElement;
@@ -37,6 +43,20 @@ export class HomeComponent {
       current = current.parentElement;
     }
     console.log('Not in a country');
+  }
+
+  openDialog(): void {
+    const playScope = this.gameSettings.playScope;
+    const dialogRef = this._dialog.open(SettingsComponent, {
+      data: this.gameSettings
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      if (this.gameSettings.playScope !== playScope && this.game.sumScores !== 0) {
+        console.log('The play scope has changed, reset game');
+        this.game.play();
+      }
+    });
   }
 
   highlightCountry(countryCode) {

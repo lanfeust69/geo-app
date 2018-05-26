@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Game Settings</h1>
+<div mat-dialog-content class="mat-typography">
+  <div id="play-scope" fxLayout="row" fxLayoutGap="10px">
+    <label fxFlex="100px">Play on</label>
+    <div fxFlex="100px">
+    <mat-select [(value)]="settings.playScope">
+      <mat-option *ngFor="let s of playScopes" [value]="s">{{s}}</mat-option>
+    </mat-select>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <label fxFlex="100px">Name</label>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="showName">Show</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="queryName">Query</mat-checkbox>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <label fxFlex="100px">Capital</label>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="showCapital">Show</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="queryCapital">Query</mat-checkbox>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <label fxFlex="100px">Location</label>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="showLocation">Show</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="queryLocation">Query</mat-checkbox>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <label fxFlex="100px">Flag</label>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="showFlag">Show</mat-checkbox>
+  </div>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="center">
+  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</div>

@@ -1,18 +1,33 @@
 <div class="main-form">
-  <img *ngIf="flag && settings.showFlag" id="flag" [src]="flag" style="width: 100%"
-    title="click to enlarge" (click)="zoomFlagEvent.next(flag)">
-  <h1 *ngIf="settings.showName">{{country}}</h1>
-  <h2 *ngIf="settings.showCapital">{{capital}}</h2>
-  <div>
-    <button *ngIf="sumScores > 0 && !highlighted" (click)="help()">Help</button>
-    <button *ngIf="sumScores > 0" (click)="explore()">Explore</button>
-    <div *ngIf="sumScores === 0">
+  <img *ngIf="(settings.showFlag || showAll) && country && country.flag" id="flag" [src]="country.flag" style="width: 100%"
+    title="click to enlarge" (click)="zoomFlagEvent.next(country.flag)">
+  <h2 *ngIf="settings.showName || showAll">{{country.name}}</h2>
+  <div *ngIf="isPlaying && settings.queryName">
+    <label>Name</label>
+    <input type="text" #inputNameElem id="inputName" name="inputName" [(ngModel)]="inputName"
+           (keyup.enter)="checkName()" (blur)="checkName()" />
+    <input type="checkbox" disabled [(ngModel)]="nameFound" />
+  </div>
+  <h3 *ngIf="settings.showCapital || showAll">{{country.capitals.join(' ou ')}}</h3>
+  <div *ngIf="isPlaying && settings.queryCapital">
+    <label>Capital</label>
+    <input type="text" #inputCapitalElem id="inputCapital" name="inputCapital" [(ngModel)]="inputCapital"
+           (keyup.enter)="checkCapital()" (blur)="checkCapital()" />
+    <input type="checkbox" disabled [(ngModel)]="capitalFound" />
+  </div>
+  <label *ngIf="isPlaying && settings.queryLocation && (settings.queryName || settings.queryCapital)">
+    <input type="checkbox" disabled [(ngModel)]="locationFound" />Located
+  </label>
+  <div class="play-buttons">
+    <button *ngIf="isPlaying" (click)="help()">Help</button>
+    <button *ngIf="isPlaying" (click)="explore()">Explore</button>
+    <div *ngIf="!isPlaying">
       <button (click)="play()">Play</button>
     </div>
   </div>
   <div>
     {{nbHelp}} help{{nbHelp &gt; 1 ? 's' : ''}}, {{nbErrors}} error{{nbErrors &gt; 1 ? 's' : ''}}
   </div>
-  <div *ngIf="sumScores > 0">Remaining : {{sumScores}}</div>
+  <div *ngIf="isPlaying">Remaining : {{sumScores}}</div>
   <div>{{time}}</div>
 </div>

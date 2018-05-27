@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { interval } from 'rxjs';
@@ -25,21 +25,30 @@ export class GameComponent implements OnInit {
   @Output() highlightCountryEvent = new EventEmitter<string>();
   @Output() zoomFlagEvent = new EventEmitter<string>();
 
+  @ViewChild('inputNameElem') inputNameElement: ElementRef;
+  @ViewChild('inputCapitalElem') inputCapitalElement: ElementRef;
+
   current: number;
-  country: string;
-  capital: string;
-  flag: string;
+  country: Country;
 
   isoCodes: string[] = [];
   countries: { [index: string]: Country } = {};
 
   playScope: PlayScope = 'All';
+  isPlaying = false;
+  showAll = false;
   scores: number[];
   sumScores: number;
   started: Date;
   time: string;
   nbErrors = 0;
   nbHelp = 0;
+
+  inputName = '';
+  nameFound = false;
+  inputCapital = '';
+  capitalFound = false;
+  locationFound = false;
 
   constructor(private _http: HttpClient) {}
 
@@ -62,11 +71,20 @@ export class GameComponent implements OnInit {
   }
 
   setCountry(countryCode: string) {
-    const country = this.countries[countryCode];
-    this.country = country.name;
-    this.capital = country.capitals.join(' ou ');
-    this.flag = country.flag;
-    this.highlightCountry('');
+    this.country = this.countries[countryCode];
+    if (!this.isPlaying) {
+      this.highlightCountry(countryCode);
+      return;
+    }
+    this.showAll = false;
+    if (this.settings.showLocation)
+      this.highlightCountry(countryCode);
+    else
+      this.highlightCountry('');
+    if (this.settings.queryName)
+      this.inputNameElement.nativeElement.focus();
+    else if (this.settings.queryCapital)
+      this.inputCapitalElement.nativeElement.focus();
   }
 
   highlightCountry(countryCode: string) {
@@ -84,30 +102,77 @@ export class GameComponent implements OnInit {
       s += this.scores[i];
     }
     this.current = i;
+    this.inputName = '';
+    this.nameFound = false;
+    this.inputCapital = '';
+    this.capitalFound = false;
+    this.locationFound = false;
     this.setCountry(this.isoCodes[this.current]);
   }
 
   countryClicked(contryCode: string) {
-    if (!this.started) {
-      this.started = new Date();
-    }
-    if (this.sumScores === 0) {
+    if (!this.isPlaying) {
       this.setCountry(contryCode);
       this.highlightCountry(contryCode);
+      return;
+    }
+    if (!this.started)
+      this.started = new Date();
+    if (!this.settings.queryLocation || this.locationFound)
+      return;
+
+    if (contryCode === this.isoCodes[this.current]) {
+      this.locationFound = true;
+      this.highlightCountry(contryCode);
+      this.checkNext();
     } else {
-      if (contryCode === this.isoCodes[this.current]) {
-        this.scores[this.current]--;
-        this.sumScores--;
-        this.setRandomCountry();
-      } else {
-        this.scores[this.current]++;
-        this.sumScores++;
-        this.nbErrors++;
-      }
+      this.scores[this.current]++;
+      this.sumScores++;
+      this.nbErrors++;
+    }
+  }
+
+  checkName() {
+    if (!this.started)
+      this.started = new Date();
+    if (this.inputName !== this.country.name)
+      return;
+    this.nameFound = true;
+    if (this.settings.queryCapital && !this.capitalFound)
+      this.inputCapitalElement.nativeElement.focus();
+    this.checkNext();
+  }
+
+  checkCapital() {
+    if (!this.started)
+      this.started = new Date();
+    if (this.country.capitals.indexOf(this.inputCapital) === -1)
+      return;
+    this.capitalFound = true;
+    if (this.settings.queryName && !this.nameFound)
+      this.inputNameElement.nativeElement.focus();
+    this.checkNext();
+  }
+
+  checkNext() {
+    if (this.settings.queryName && !this.nameFound)
+      return;
+    if (this.settings.queryCapital && !this.capitalFound)
+      return;
+    if (this.settings.queryLocation && !this.locationFound)
+      return;
+    this.scores[this.current]--;
+    this.sumScores--;
+    if (this.sumScores === 0) {
+      this.isPlaying = false;
+      this.showAll = true;
+    } else {
+      this.setRandomCountry();
     }
   }
 
   help() {
+    this.showAll = true;
     this.highlightCountry(this.isoCodes[this.current]);
     this.scores[this.current] += 3;
     this.sumScores += 3;
@@ -115,6 +180,8 @@ export class GameComponent implements OnInit {
   }
 
   explore() {
+    this.isPlaying = false;
+    this.showAll = true;
     this.highlightCountry(this.isoCodes[this.current]);
     this.started = undefined;
     this.sumScores = 0;
@@ -122,6 +189,7 @@ export class GameComponent implements OnInit {
 
   play() {
     this.playScope = this.settings.playScope;
+    this.isPlaying = true;
     this.started = undefined;
     this.time = undefined;
     const filter = this.getFilter();
@@ -150,7 +218,7 @@ export class GameComponent implements OnInit {
   }
 
   setTime() {
-    if (!this.started || this.sumScores === 0)
+    if (!this.started || !this.isPlaying)
       return;
     const elapsed = Math.floor(new Date().getTime() - this.started.getTime()) / 1000;
     this.time = `${Math.floor(elapsed / 60)}:${Math.floor(elapsed % 60).toLocaleString(undefined, {minimumIntegerDigits: 2})}`;

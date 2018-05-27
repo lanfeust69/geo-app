@@ -52,7 +52,7 @@ export class HomeComponent {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      if (this.gameSettings.playScope !== playScope && this.game.sumScores !== 0) {
+      if (this.gameSettings.playScope !== playScope && this.game.isPlaying) {
         console.log('The play scope has changed, reset game');
         this.game.play();
       }

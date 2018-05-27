@@ -3,14 +3,19 @@
     text-align: center;
 }
 
+.play-buttons {
+    margin-top: 15px;
+}
+
 button {
     font-size: 120%;
 }
 
-select {
-    font-size: 120%;
+input[type="text"] {
+    font-size: 80%;
+    width: 84%;
 }
 
-select option {
-    font-size: 50%;
+input[type="checkbox"] {
+    zoom: 2;
 }

@@ -1,5 +1,5 @@
 <div class="main-form">
-  <img *ngIf="(settings.showFlag || showAll) && country && country.flag" id="flag" [src]="country.flag" style="width: 100%"
+  <img *ngIf="(settings.showFlag || showAll) && country && country.flag" id="flag" [src]="country.flag" style="width: 100%; height:200px;"
     title="click to enlarge" (click)="zoomFlagEvent.next(country.flag)">
   <h2 *ngIf="settings.showName || showAll">{{country.name}}</h2>
   <div *ngIf="isPlaying && settings.queryName">

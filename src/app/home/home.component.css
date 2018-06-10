@@ -194,9 +194,9 @@ Reserved class names:
   }
 
 .big-flag img {
+    width: 100%;
     height: 100%;
-    border:1px solid #000000;
-    box-shadow: 10px 10px 5px 0px gray;
+    filter: drop-shadow(8px 8px 10px gray);
 }
 
 #menu-button-div {

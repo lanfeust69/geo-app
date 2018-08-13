@@ -2,7 +2,7 @@
 
 This is a simple geographic quiz game. A live instance is hosted [here](https://famille-lafay.fr/geo/).
 
-In `Play` mode, depending on the selected options in the `Settings` dialog, you will be shown some information abount a country, and asked others, among :
+In `Play` mode, depending on the selected options in the `Settings` dialog, you will be shown some information about a country, and asked others, among :
 - its flag
 - its location
 - its name

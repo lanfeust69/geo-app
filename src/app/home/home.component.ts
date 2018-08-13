@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { GameComponent } from '../game/game.component';

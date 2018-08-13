@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 import { PlayScope, Settings } from '../settings';
 
@@ -11,9 +11,7 @@ import { PlayScope, Settings } from '../settings';
 export class SettingsComponent {
   playScopes: PlayScope[] = ['All', 'Top 100', 'Top 50', 'Africa', 'America', 'Asia', 'Europe', 'Oceania'];
 
-  constructor(
-    public dialogRef: MatDialogRef<SettingsComponent>,
-    @Inject(MAT_DIALOG_DATA) public settings: Settings) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public settings: Settings) { }
 
     get showName() {
       return this.settings.showName;

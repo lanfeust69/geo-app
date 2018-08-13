@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule, MAT_DIALOG_DATA, MatDialogModule, MatSelectModule } from '@angular/material';
 
 import { SettingsComponent } from './settings.component';
+import { PlayScope, Settings } from '../settings';
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -8,7 +11,10 @@ describe('SettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SettingsComponent ]
+      imports: [ FormsModule, MatCheckboxModule, MatDialogModule, MatSelectModule ],
+      declarations: [ SettingsComponent ],
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: new Settings() }]
     })
     .compileComponents();
   }));
@@ -21,5 +27,22 @@ describe('SettingsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    // default values
+    expect(component.settings.playScope).toBe('All');
+    expect(component.showFlag).toBe(true);
+    expect(component.queryLocation).toBe(true);
+  });
+
+  ['Name', 'Capital', 'Location'].forEach(property => {
+    it(`should not show ${property} when queried`, () => {
+      component[`show${property}`] = true;
+      component[`query${property}`] = true;
+      expect(component[`show${property}`]).toBe(false);
+    });
+    it(`should not query ${property} when showed`, () => {
+      component[`query${property}`] = true;
+      component[`show${property}`] = true;
+      expect(component[`query${property}`]).toBe(false);
+    });
   });
 });

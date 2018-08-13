@@ -1,14 +1,13 @@
-import { AppPage } from './app.po';
+import { browser, by, element } from 'protractor';
 
 describe('geo-app App', () => {
-  let page: AppPage;
-
-  beforeEach(() => {
-    page = new AppPage();
-  });
-
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+  it('should display Settings dialog', () => {
+    browser.get('/');
+    const settingsButton = element(by.css('div[id=menu-button-div] button'));
+    expect(settingsButton).toBeTruthy();
+    settingsButton.click();
+    const settingsOkButton = element(by.css('app-settings button'));
+    expect(settingsOkButton).toBeTruthy();
+    settingsOkButton.click();
   });
 });

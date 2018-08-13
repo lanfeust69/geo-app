@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { interval } from 'rxjs';
@@ -50,7 +50,7 @@ export class GameComponent implements OnInit {
   capitalFound = false;
   locationFound = false;
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private _ngZone: NgZone) {}
 
   ngOnInit() {
     this._http.get('assets/data.csv', { responseType: 'text' }).subscribe(data => {
@@ -67,7 +67,9 @@ export class GameComponent implements OnInit {
       }
       this.play();
     });
-    interval(500).subscribe(_ => this.setTime());
+    // usual dance so that protractor doesn't wait forever for this
+    this._ngZone.runOutsideAngular(() =>
+      interval(500).subscribe(_ => this._ngZone.run(() => this.setTime())));
   }
 
   setCountry(countryCode: string) {

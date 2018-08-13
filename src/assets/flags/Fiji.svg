@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
-<clipPath id="c">
+<clipPath id="c1">
+<path d="M0,0V300H600V0z"/>
+</clipPath>
+<clipPath id="c2">
 <path d="M0,0V150H700V300H600zM0,300V400H300V0H600z"/>
 </clipPath>
 <rect width="1200" height="600" fill="#002868"/>
-<path d="M0,0 600,300M0,300 600,0" stroke="#fff" stroke-width="60"/>
-<path d="M0,0 600,300M0,300 600,0" stroke="#ce1126" stroke-width="40" clip-path="url(#c)"/>
+<path d="M0,0 600,300M0,300 600,0" stroke="#fff" stroke-width="60" clip-path="url(#c1)"/>
+<path d="M0,0 600,300M0,300 600,0" stroke="#ce1126" stroke-width="40" clip-path="url(#c2)"/>
 <path d="M300,0V400M0,150H700" stroke="#fff" stroke-width="100"/>
 <path d="M300,0V400M0,150H700" stroke="#ce1126" stroke-width="60"/>
 <path d="M0,300H600V0H1200V600H0z" fill="#68bfe5"/>

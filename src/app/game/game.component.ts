@@ -10,6 +10,7 @@ interface Country {
   name: string;
   capitals: string[];
   flag: string;
+  flagSvg: string;
   continent: string;
   rank: number;
 }
@@ -27,6 +28,7 @@ export class GameComponent implements OnInit {
 
   @ViewChild('inputNameElem') inputNameElement: ElementRef;
   @ViewChild('inputCapitalElem') inputCapitalElement: ElementRef;
+  @ViewChild('flagDiv') flagElement: ElementRef;
 
   current: number;
   country: Country;
@@ -62,7 +64,13 @@ export class GameComponent implements OnInit {
           this.countries[isoCode].capitals.push(capital);
         } else {
           this.isoCodes.push(isoCode);
-          this.countries[isoCode] = { isoCode, name, capitals: [capital], flag: `assets/flags/${flag}.svg`, continent, rank: +rank };
+          this.countries[isoCode] = { isoCode, name, capitals: [capital], flag: `assets/flags/${flag}.svg`, flagSvg: '', continent, rank: +rank };
+          this._http.get(`assets/flags/${flag}.svg`, { responseType: 'text' }).subscribe(svg => {
+            const sizedSvg = svg.replace('viewBox', 'width = "290px" height="200px" viewBox');
+            this.countries[isoCode].flagSvg = sizedSvg;
+            if (this.country && this.country.isoCode === isoCode && this.flagElement)
+              this.flagElement.nativeElement.innerHTML = sizedSvg;
+          });
         }
       }
       this.play();
@@ -74,6 +82,8 @@ export class GameComponent implements OnInit {
 
   setCountry(countryCode: string) {
     this.country = this.countries[countryCode];
+    if (this.flagElement)
+      this.flagElement.nativeElement.innerHTML = this.country.flagSvg;
     if (!this.isPlaying) {
       this.highlightCountry(countryCode);
       return;
@@ -112,10 +122,10 @@ export class GameComponent implements OnInit {
     this.setCountry(this.isoCodes[this.current]);
   }
 
-  countryClicked(contryCode: string) {
+  countryClicked(countryCode: string) {
     if (!this.isPlaying) {
-      this.setCountry(contryCode);
-      this.highlightCountry(contryCode);
+      this.setCountry(countryCode);
+      this.highlightCountry(countryCode);
       return;
     }
     if (!this.started)
@@ -123,9 +133,9 @@ export class GameComponent implements OnInit {
     if (!this.settings.queryLocation || this.locationFound)
       return;
 
-    if (contryCode === this.isoCodes[this.current]) {
+    if (countryCode === this.isoCodes[this.current]) {
       this.locationFound = true;
-      this.highlightCountry(contryCode);
+      this.highlightCountry(countryCode);
       this.checkNext();
     } else {
       this.scores[this.current]++;

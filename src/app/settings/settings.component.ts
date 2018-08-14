@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 import { PlayScope, Settings } from '../settings';
 
 @Component({
-  selector: 'app-settings',
+  selector: 'geo-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })

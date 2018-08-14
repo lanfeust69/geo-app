@@ -1,9 +1,11 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { GameComponent } from './game.component';
 import { Settings } from '../settings';
+import { DataService } from '../services/data.service';
+import { FlagService } from '../services/flag.service';
+import { dataServiceStub, flagServiceStub } from '../services/service.stubs';
 
 describe('GameComponent', () => {
   let component: GameComponent;
@@ -11,8 +13,12 @@ describe('GameComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, HttpClientTestingModule ],
-      declarations: [ GameComponent ]
+      imports: [ FormsModule ],
+      declarations: [ GameComponent ],
+      providers: [
+        { provide: DataService, useValue: dataServiceStub },
+        { provide: FlagService, useValue: flagServiceStub }
+      ]
     })
     .compileComponents();
   }));

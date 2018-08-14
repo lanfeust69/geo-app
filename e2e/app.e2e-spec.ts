@@ -6,7 +6,7 @@ describe('geo-app App', () => {
     const settingsButton = element(by.css('div[id=menu-button-div] button'));
     expect(settingsButton).toBeTruthy();
     settingsButton.click();
-    const settingsOkButton = element(by.css('app-settings button'));
+    const settingsOkButton = element(by.css('geo-settings button'));
     expect(settingsOkButton).toBeTruthy();
     settingsOkButton.click();
   });

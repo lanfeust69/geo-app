@@ -1,5 +1,5 @@
 <div class="main-form">
-  <div *ngIf="(settings.showFlag || showAll)" #flagDiv title="click to enlarge" (click)="zoomFlagEvent.next(country.flag)"></div>
+  <div *ngIf="showFlag" [innerHTML]="flagSvg" title="click to enlarge" (click)="zoomFlagEvent.next(country.flag)"></div>
   <h2 *ngIf="settings.showName || showAll">{{country.name}}</h2>
   <div *ngIf="isPlaying && settings.queryName">
     <label>Name</label>

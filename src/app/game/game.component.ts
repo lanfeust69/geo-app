@@ -1,23 +1,15 @@
 import { Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { interval } from 'rxjs';
 
+import { Countries, Country, DataService } from '../services/data.service';
+import { FlagService } from '../services/flag.service';
 import { PlayScope, Settings } from '../settings';
-
-interface Country {
-  isoCode: string;
-  name: string;
-  capitals: string[];
-  flag: string;
-  flagSvg: string;
-  continent: string;
-  rank: number;
-}
 
 @Component({
   // tslint:disable-next-line:component-selector : necessary to embed the component in svg
-  selector: '[app-game]',
+  selector: '[geo-game]',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
@@ -28,13 +20,13 @@ export class GameComponent implements OnInit {
 
   @ViewChild('inputNameElem') inputNameElement: ElementRef;
   @ViewChild('inputCapitalElem') inputCapitalElement: ElementRef;
-  @ViewChild('flagDiv') flagElement: ElementRef;
 
   current: number;
   country: Country;
+  flagSvg: SafeHtml;
 
   isoCodes: string[] = [];
-  countries: { [index: string]: Country } = {};
+  countries: Countries = {};
 
   playScope: PlayScope = 'All';
   isPlaying = false;
@@ -52,27 +44,16 @@ export class GameComponent implements OnInit {
   capitalFound = false;
   locationFound = false;
 
-  constructor(private _http: HttpClient, private _ngZone: NgZone) {}
+  constructor(
+    private _dataService: DataService,
+    private _flagService: FlagService,
+    private _sanitizer: DomSanitizer,
+    private _ngZone: NgZone) {}
 
   ngOnInit() {
-    this._http.get('assets/data.csv', { responseType: 'text' }).subscribe(data => {
-      for (const line of data.split(/\r?\n/)) {
-        const [name, capital, flag, isoCode, continent, rank] = line.split(/;/);
-        if (!isoCode)
-          continue;
-        if (isoCode in this.countries) {
-          this.countries[isoCode].capitals.push(capital);
-        } else {
-          this.isoCodes.push(isoCode);
-          this.countries[isoCode] = { isoCode, name, capitals: [capital], flag: `assets/flags/${flag}.svg`, flagSvg: '', continent, rank: +rank };
-          this._http.get(`assets/flags/${flag}.svg`, { responseType: 'text' }).subscribe(svg => {
-            const sizedSvg = svg.replace('viewBox', 'width = "290px" height="200px" viewBox');
-            this.countries[isoCode].flagSvg = sizedSvg;
-            if (this.country && this.country.isoCode === isoCode && this.flagElement)
-              this.flagElement.nativeElement.innerHTML = sizedSvg;
-          });
-        }
-      }
+    this._dataService.getCountries().subscribe(countries => {
+      this.countries = countries;
+      this.isoCodes = Object.keys(countries);
       this.play();
     });
     // usual dance so that protractor doesn't wait forever for this
@@ -82,8 +63,11 @@ export class GameComponent implements OnInit {
 
   setCountry(countryCode: string) {
     this.country = this.countries[countryCode];
-    if (this.flagElement)
-      this.flagElement.nativeElement.innerHTML = this.country.flagSvg;
+
+    this._flagService.getSvg(countryCode, 290, 200).subscribe(svg => {
+      this.flagSvg = this._sanitizer.bypassSecurityTrustHtml(svg);
+    });
+
     if (!this.isPlaying) {
       this.highlightCountry(countryCode);
       return;
@@ -234,5 +218,9 @@ export class GameComponent implements OnInit {
       return;
     const elapsed = Math.floor(new Date().getTime() - this.started.getTime()) / 1000;
     this.time = `${Math.floor(elapsed / 60)}:${Math.floor(elapsed % 60).toLocaleString(undefined, {minimumIntegerDigits: 2})}`;
+  }
+
+  get showFlag() {
+    return this.settings.showFlag || this.showAll;
   }
 }

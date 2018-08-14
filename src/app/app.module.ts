@@ -12,13 +12,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { SettingsComponent } from './settings/settings.component';
+import { FlagPickerComponent } from './flag-picker/flag-picker.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     GameComponent,
-    SettingsComponent
+    SettingsComponent,
+    FlagPickerComponent
   ],
   entryComponents: [SettingsComponent],
   imports: [

@@ -7,7 +7,7 @@ import { SettingsComponent } from '../settings/settings.component';
 import { Settings } from '../settings';
 
 @Component({
-  selector: 'app-home',
+  selector: 'geo-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

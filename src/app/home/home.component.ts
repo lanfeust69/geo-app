@@ -80,8 +80,9 @@ export class HomeComponent {
 
   onWheel(event: WheelEvent) {
     const el = this.worldElem.nativeElement as HTMLElement;
-    const relX = event.offsetX / el.clientWidth;
-    const relY = event.offsetY / el.clientHeight;
+    const rect = el.getBoundingClientRect();
+    const relX = event.offsetX / rect.width;
+    const relY = event.offsetY / rect.height;
     if (event.deltaY < 0) {
       const dW = this.vW * 0.05;
       this.vW -= dW;

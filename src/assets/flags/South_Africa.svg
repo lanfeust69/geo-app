@@ -3,10 +3,10 @@
 <clipPath id="Z">
 <path d="M0,0 4.5,3 0,6" id="X"/>
 </clipPath>
-<clipPath id="A">
+<clipPath id="A_0">
 <path d="M0,0H9V6H0z"/>
 </clipPath>
-<g clip-path="url(#A)">
+<g clip-path="url(#A_0)">
 <path d="M0,0V6H9V0z" fill="#002395"/>
 <path d="M0,0V3H9V0z" fill="#de3831"/>
 <g stroke-width="2" stroke="#fff">

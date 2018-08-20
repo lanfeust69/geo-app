@@ -17,6 +17,7 @@ export class GameComponent implements OnInit {
   @Input() settings: Settings;
   @Output() highlightCountryEvent = new EventEmitter<string>();
   @Output() zoomFlagEvent = new EventEmitter<string>();
+  @Output() showFlagPickerEvent = new EventEmitter<boolean>();
 
   @ViewChild('inputNameElem') inputNameElement: ElementRef;
   @ViewChild('inputCapitalElem') inputCapitalElement: ElementRef;
@@ -43,6 +44,7 @@ export class GameComponent implements OnInit {
   inputCapital = '';
   capitalFound = false;
   locationFound = false;
+  flagFound = false;
 
   constructor(
     private _dataService: DataService,
@@ -103,6 +105,7 @@ export class GameComponent implements OnInit {
     this.inputCapital = '';
     this.capitalFound = false;
     this.locationFound = false;
+    this.flagFound = false;
     this.setCountry(this.isoCodes[this.current]);
   }
 
@@ -125,6 +128,18 @@ export class GameComponent implements OnInit {
       this.scores[this.current]++;
       this.sumScores++;
       this.nbErrors++;
+    }
+  }
+
+  showFlagPicker() {
+    this.showFlagPickerEvent.next(true);
+  }
+
+  flagClicked(countryCode: string) {
+    if (countryCode === this.isoCodes[this.current]) {
+      this.flagFound = true;
+      this.showFlagPickerEvent.next(false);
+      this.checkNext();
     }
   }
 
@@ -156,6 +171,8 @@ export class GameComponent implements OnInit {
     if (this.settings.queryCapital && !this.capitalFound)
       return;
     if (this.settings.queryLocation && !this.locationFound)
+      return;
+    if (this.settings.queryFlag && !this.flagFound)
       return;
     this.scores[this.current]--;
     this.sumScores--;
@@ -221,6 +238,6 @@ export class GameComponent implements OnInit {
   }
 
   get showFlag() {
-    return this.settings.showFlag || this.showAll;
+    return this.settings.showFlag || this.showAll || (this.settings.queryFlag && this.flagFound);
   }
 }

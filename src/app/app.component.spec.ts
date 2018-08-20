@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule, MatDialogModule, MatIconModule, MatSelectModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { FlagPickerComponent } from './flag-picker/flag-picker.component';
 import { GameComponent } from './game/game.component';
 import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -17,7 +18,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatSelectModule ],
       declarations: [
-        AppComponent, GameComponent, HomeComponent, SettingsComponent
+        AppComponent, FlagPickerComponent, GameComponent, HomeComponent, SettingsComponent
       ],
       providers: [
         { provide: DataService, useValue: dataServiceStub },

@@ -4,13 +4,13 @@
 	<rect x="30" width="60" height="60" fill="#ce1126"/>
 	<rect x="60" width="30" height="60" fill="#fcd116"/>
 	<g transform="translate(45,30)" fill="#fcd116">
-		<g id="c">
-			<path id="t" d="M 0,-8 v 8 h 4 z" transform="rotate(18 0,-8)"/>
-			<use xlink:href="#t" transform="scale(-1,1)"/>
+		<g id="c_5">
+			<path id="t_3" d="M 0,-8 v 8 h 4 z" transform="rotate(18 0,-8)"/>
+			<use xlink:href="#t_3" transform="scale(-1,1)"/>
 		</g>
-		<use xlink:href="#c" transform="rotate(72)"/>
-		<use xlink:href="#c" transform="rotate(144)"/>
-		<use xlink:href="#c" transform="rotate(216)"/>
-		<use xlink:href="#c" transform="rotate(288)"/>
+		<use xlink:href="#c_5" transform="rotate(72)"/>
+		<use xlink:href="#c_5" transform="rotate(144)"/>
+		<use xlink:href="#c_5" transform="rotate(216)"/>
+		<use xlink:href="#c_5" transform="rotate(288)"/>
 	</g>
 </svg>

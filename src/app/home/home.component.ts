@@ -17,6 +17,7 @@ export class HomeComponent {
 
   gameSettings = new Settings();
 
+  showFlagPicker = false;
   highlighted: NodeListOf<Element>;
   flag: string;
   flagZoomed = false;
@@ -57,6 +58,13 @@ export class HomeComponent {
         this.game.play();
       }
     });
+  }
+
+  flagClicked(countryCode) {
+    if (countryCode)
+      this.game.flagClicked(countryCode);
+    else
+      this.showFlagPicker = false;
   }
 
   highlightCountry(countryCode) {

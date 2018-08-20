@@ -1,0 +1,27 @@
+
+.flag-table {
+    position: fixed;
+    left: 5%;
+    top: 5%;
+    width: 90%;
+    height: 90%;
+    z-index: 10000;
+    padding: 5px;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+}
+
+div.flag-table {
+    background: lightgrey;
+}
+
+.flag-table table {
+    width: 100%;
+    height: 100%;
+}
+
+.flag-table svg {
+    stroke: black;
+    stroke-width: 4;
+}

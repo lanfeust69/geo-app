@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg version="1.1" viewBox="-5 -5 27 18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<title>Flag of Uruguay</title>
 <rect x="-5" y="-5" width="27" height="18" fill="#fff"/>
 <g fill="#0038a8">
 <rect x="5" y="-3" width="17" height="2"/>
@@ -10,8 +9,8 @@
 </g>
 <g transform="scale(.11)" fill="#fcd116" stroke="#7B3F00" stroke-miterlimit="20" stroke-width=".6">
 <g id="u" stroke="#7B3F00">
-<g id="t">
-<g id="s" stroke="#7B3F00">
+<g id="t_20">
+<g id="s_12" stroke="#7B3F00">
 <g transform="rotate(22.5)">
 <path d="m1.5 9 4.5 3c-8 13 1 15-6 21 3-7-3-5-3-17" stroke="#7B3F00" stroke-linecap="square"/>
 <path transform="matrix(.25197 -.10437 .10437 .25197 -59.389 -24.6)" d="m159.12 199.26-7.2676 5.0449 0.32227 0.19336c-12.406 20.448-14.514 36.173-16.324 48.336-0.90494 6.0814-1.7226 11.296-3.7988 15.76-1.3415 2.8842-3.244 5.4222-5.9648 7.6016 22.975-10.935 1.7957-29.867 44.068-60.459z" fill="#7B3F00" stroke="#7B3F00" stroke-linecap="square" stroke-miterlimit="20" stroke-width="1"/>
@@ -20,9 +19,9 @@
 <path d="m0 0h-6l6 33 6-33h-6v33" stroke="#7B3F00"/>
 <path d="m0 0 5.9999 9.0909e-5h-6v33l6.0001-33" fill="#7B3F00" stroke="none"/>
 </g>
-<use transform="rotate(45)" stroke="#7B3F00" xlink:href="#s"/>
+<use transform="rotate(45)" stroke="#7B3F00" xlink:href="#s_12"/>
 </g>
-<use transform="rotate(90)" stroke="#7B3F00" xlink:href="#t"/>
+<use transform="rotate(90)" stroke="#7B3F00" xlink:href="#t_20"/>
 </g>
 <use transform="rotate(180)" xlink:href="#u"/>
 <circle r="11"/>

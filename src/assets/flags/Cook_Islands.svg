@@ -11,14 +11,14 @@
 <path d="M300,0V150H0V300H600V0z" fill="#00247d"/>
 <g transform="translate(450,150)">
 <g id="s1" transform="translate(0,-102)" fill="#fff">
-<g id="c">
-<path id="t" d="M0,-22.5V0H12" transform="rotate(18,0,-22.5)"/>
-<use xlink:href="#t" transform="scale(-1,1)"/>
+<g id="c_6">
+<path id="t_4" d="M0,-22.5V0H12" transform="rotate(18,0,-22.5)"/>
+<use xlink:href="#t_4" transform="scale(-1,1)"/>
 </g>
-<use xlink:href="#c" transform="rotate(72)"/>
-<use xlink:href="#c" transform="rotate(144)"/>
-<use xlink:href="#c" transform="rotate(216)"/>
-<use xlink:href="#c" transform="rotate(288)"/>
+<use xlink:href="#c_6" transform="rotate(72)"/>
+<use xlink:href="#c_6" transform="rotate(144)"/>
+<use xlink:href="#c_6" transform="rotate(216)"/>
+<use xlink:href="#c_6" transform="rotate(288)"/>
 </g>
 <g id="s7">
 <use xlink:href="#s1" transform="rotate(24)"/>

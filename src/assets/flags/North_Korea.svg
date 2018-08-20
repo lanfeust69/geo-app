@@ -4,13 +4,13 @@
 <rect fill="#fff" y="6" width="72" height="24"/>
 <rect fill="#ED1C27" y="7" width="72" height="22"/>    
 <circle fill="#fff" cx="24" cy="18" r="8"/>
-<g id="star" transform="translate(24,18) scale(7.75)" fill="#ED1C27">
-<g id="cone">
-<polygon id="triangle" points="0,0 0,1 .5,1" transform="translate(0,-1) rotate(18)"/><use xlink:href="#triangle" transform="scale(-1,1)" id="use12"/>
+<g id="star_7" transform="translate(24,18) scale(7.75)" fill="#ED1C27">
+<g id="cone_0">
+<polygon id="triangle_1" points="0,0 0,1 .5,1" transform="translate(0,-1) rotate(18)"/><use xlink:href="#triangle_1" transform="scale(-1,1)" id="use12_0"/>
 </g>
-<use xlink:href="#cone" transform="rotate(72)" id="use14"/>
-<use xlink:href="#cone" transform="rotate(-72)" id="use16"/>
-<use xlink:href="#cone" transform="rotate(144)" id="use18"/>
-<use xlink:href="#cone" transform="rotate(-144)" id="use20"/>
+<use xlink:href="#cone_0" transform="rotate(72)" id="use14_0"/>
+<use xlink:href="#cone_0" transform="rotate(-72)" id="use16_0"/>
+<use xlink:href="#cone_0" transform="rotate(144)" id="use18_0"/>
+<use xlink:href="#cone_0" transform="rotate(-144)" id="use20_0"/>
 </g>
 </svg>

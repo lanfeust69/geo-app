@@ -1,5 +1,6 @@
 <div class="main-form">
   <div *ngIf="showFlag" [innerHTML]="flagSvg" title="click to enlarge" (click)="zoomFlagEvent.next(country.flag)"></div>
+  <button *ngIf="isPlaying && settings.queryFlag && !flagFound" (click)="showFlagPicker()">Pick Flag</button>
   <h2 *ngIf="settings.showName || showAll">{{country.name}}</h2>
   <div *ngIf="isPlaying && settings.queryName">
     <label>Name</label>

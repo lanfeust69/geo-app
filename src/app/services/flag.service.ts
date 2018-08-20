@@ -23,8 +23,8 @@ export class FlagService {
       replace = `width="${width}px" ` + replace;
     }
     if (this._svgs)
-      return of(this._svgs[countryCode].replace('viewBox', replace));
-    return this.getAll().pipe(map(res => res[countryCode]));
+      return of(this.uniqueClipPath(this._svgs[countryCode].replace('viewBox', replace)));
+    return this.getAll().pipe(map(res => this.uniqueClipPath(res[countryCode].replace('viewBox', replace))));
   }
 
   getAll(): Observable<SvgMap> {
@@ -56,5 +56,12 @@ export class FlagService {
       publish()) as ConnectableObservable<SvgMap>;  // need cast until https://github.com/ReactiveX/rxjs/issues/2972 is resolved
     this._getAll.connect();
     return this._getAll;
+  }
+
+  // allow flags from getAll() and getSvg() to be displayed simultaneously : the ids must be unique
+  private uniqueClipPath(svg: string): string {
+    return svg.replace(/id="([^"]+)"/g, 'id="_$1"')
+      .replace(/url\(#([^\)]+)\)/g, 'url(#_$1)')
+      .replace(/href="#([^\"]+)"/g, 'href="#_$1"');
   }
 }

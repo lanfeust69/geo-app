@@ -5,14 +5,14 @@
 <stop stop-color="#fff" offset="0"/>
 <stop stop-color="#f15770" offset="1"/>
 </linearGradient>
-<radialGradient id="rg1" xlink:href="#lg" gradientUnits="userSpaceOnUse" cx="842.31" cy="103.66" r="25.859" gradientTransform="matrix(0.185743,0.047185,-0.04532,0.186354,233.798119,198.76959)"/>
-<radialGradient id="rg2" xlink:href="#lg" gradientUnits="userSpaceOnUse" cx="651.52" cy="550.46" r="25.859" gradientTransform="matrix(-0.176418,-0.070669,0.065152,-0.163915,430.544346,377.87561)"/>
-<radialGradient id="rg3" xlink:href="#lg" gradientUnits="userSpaceOnUse" cx="380.84" cy="740.37" r="25.859" gradientTransform="matrix(0.098907,0.003695,-0.004498,0.194304,442.362219,123.304182)"/>
+<radialGradient id="rg1_0" xlink:href="#lg" gradientUnits="userSpaceOnUse" cx="842.31" cy="103.66" r="25.859" gradientTransform="matrix(0.185743,0.047185,-0.04532,0.186354,233.798119,198.76959)"/>
+<radialGradient id="rg2_0" xlink:href="#lg" gradientUnits="userSpaceOnUse" cx="651.52" cy="550.46" r="25.859" gradientTransform="matrix(-0.176418,-0.070669,0.065152,-0.163915,430.544346,377.87561)"/>
+<radialGradient id="rg3_0" xlink:href="#lg" gradientUnits="userSpaceOnUse" cx="380.84" cy="740.37" r="25.859" gradientTransform="matrix(0.098907,0.003695,-0.004498,0.194304,442.362219,123.304182)"/>
 </defs>
 <rect height="480" width="840" fill="#ce1126"/>
 <rect height="480" width="560" fill="#fff"/>
 <rect height="480" width="280" fill="#006847"/>
-<g id="coa" transform="translate(-0.0014,1.3532)">
+<g id="coa_2" transform="translate(-0.0014,1.3532)">
 <g id="branches">
 <g fill="#fcca3e" stroke="#aa8c30">
 <path stroke-width="0.35" d="m466.96,303.53,0,0,0.29345,5.8781,2.2196-1.4668-1.702-4.8389z"/>

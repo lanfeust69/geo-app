@@ -17,7 +17,7 @@
       (                            0,-(20*sqrt(3) - 5.5)          )
       (-(20*sqrt(3) - 5.5) * cos(30), (20*sqrt(3) - 5.5) * sin(30))
       ( (20*sqrt(3) - 5.5) * cos(30), (20*sqrt(3) - 5.5) * sin(30)) -->
-    <polygon id="triangle" points="0,-29.1410161513775421
+    <polygon id="triangle_0" points="0,-29.1410161513775421
                 -25.2368602791855814, 14.5705080756887710
                  25.2368602791855814, 14.5705080756887710"
       stroke="#0038b8" stroke-width="5.5" fill-opacity="0"/>
@@ -30,6 +30,6 @@
     flags used in Israel -->
   <rect width="220" height="25" fill="#0038b8" y="15"/>
   <rect width="220" height="25" fill="#0038b8" y="120"/>
-  <use xlink:href="#triangle" transform="translate(110,80)"/>
-  <use xlink:href="#triangle" transform="translate(110,80) rotate(180)"/>
+  <use xlink:href="#triangle_0" transform="translate(110,80)"/>
+  <use xlink:href="#triangle_0" transform="translate(110,80) rotate(180)"/>
 </svg>

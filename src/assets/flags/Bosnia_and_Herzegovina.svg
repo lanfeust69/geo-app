@@ -5,12 +5,12 @@
 </clipPath>
 <path d="m4.24,0h8v8z" fill="#fecb00"/>
 <g clip-path="url(#clip)">
-    <g id="g">
+    <g id="g_0">
         <path d="M2.353283,0.5248529 2.8,-0.85 3.246717,0.524853 2.077197,-0.324853H3.522803z" fill="#fff" id="s"/>
         <use xlink:href="#s" x="1" y="1"/>
         <use xlink:href="#s" x="2" y="2"/>
     </g>
-    <use xlink:href="#g" x="3" y="3"/>
-    <use xlink:href="#g" x="6" y="6"/>
+    <use xlink:href="#g_0" x="3" y="3"/>
+    <use xlink:href="#g_0" x="6" y="6"/>
 </g>
 </svg>

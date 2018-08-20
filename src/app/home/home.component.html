@@ -1,6 +1,7 @@
 <div *ngIf="flagZoomed" class="big-flag">
   <img *ngIf="flag" id="flag" [src]="flag" (click)="flagZoomed = false">  
 </div>
+<geo-flag-picker id="flag-picker" [hidden]="!showFlagPicker" (flagClicked)="flagClicked($event)"></geo-flag-picker>
 <div id="menu-button-div">
   <button mat-icon-button (click)="openDialog()">
     <mat-icon>settings</mat-icon>
@@ -2815,7 +2816,7 @@
       <circle id="tk_" class="circlexx tk" r="6.01303" cy="840.579" cx="2708.51"/>
     </g>
     <foreignObject #game geo-game x="1020" y="760" width="290" height="500" [settings]="gameSettings"
-      (highlightCountryEvent)="highlightCountry($event)" (zoomFlagEvent)="zoomFlag($event)">
+      (highlightCountryEvent)="highlightCountry($event)" (zoomFlagEvent)="zoomFlag($event)" (showFlagPickerEvent)="showFlagPicker = $event">
     </foreignObject>
   </svg>
 </div>

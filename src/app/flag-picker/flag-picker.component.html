@@ -1,0 +1,9 @@
+<div class="flag-table" (keyup.esc)="flagClicked.next('')" (click)="flagClicked.next('')" tabindex="0">
+  <table *ngIf="flagsGrid">
+    <tr *ngFor="let row of flagsGrid; let i = index">
+      <td *ngFor="let flag of row; let j = index">
+        <div [innerHTML]="flag" (click)="onClicked(i, j, $event)"></div>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,50 @@
+<a routerLink="">
+  <mat-icon>arrow_back</mat-icon>
+</a>
+<div class="mat-typography">
+  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center">
+    <label fxFlex="100px">Played on :</label>
+    <div fxFlex="100px">
+      <mat-select [(value)]="querySettings.scope" (selectionChange)="onChanged()">
+        <mat-option *ngFor="let s of playScopes" [value]="s">{{s}}</mat-option>
+      </mat-select>
+    </div>
+    <label fxFlex="100px">Queried on :</label>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="querySettings.name" (change)="onChanged()">Name</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="querySettings.capital" (change)="onChanged()">Capital</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="querySettings.location" (change)="onChanged()">Location</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="querySettings.flag" (change)="onChanged()">Flag</mat-checkbox>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div *ngIf="stats" class="mat-typography">
+  <h4 fxLayoutAlign="center">Played {{stats.nbGames}} game{{stats.nbGames &gt; 1 ? 's' : ''}}</h4>
+  <h4 fxLayoutAlign="center">
+    Average Time : {{getLongTime(stats.gamesTiming.average)}}
+    &nbsp; - &nbsp; Best Time : {{getLongTime(stats.gamesTiming.min)}}
+    &nbsp; - &nbsp; Worst Time : {{getLongTime(stats.gamesTiming.max)}}
+  </h4>
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="country">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Country</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.country}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="average">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Average</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{getShortTime(element.average)}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="min">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Minimum</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{getShortTime(element.min)}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="max">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Maximum</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{getShortTime(element.max)}}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="['country', 'average', 'min', 'max']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['country', 'average', 'min', 'max'];"></mat-row>
+  </mat-table>
+</div>
+<div *ngIf="!stats" fxLayout="row" fxLayoutAlign="center" class="mat-typography">
+  No Data
+</div>

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
-import { PlayScope, Settings } from '../settings';
+import { allPlayScopes, PlayScope, Settings } from '../settings';
 
 @Component({
   selector: 'geo-settings',
@@ -9,7 +9,7 @@ import { PlayScope, Settings } from '../settings';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent {
-  playScopes: PlayScope[] = ['All', 'Top 100', 'Top 50', 'Africa', 'America', 'Asia', 'Europe', 'Oceania'];
+  playScopes: PlayScope[] = allPlayScopes;
 
   constructor(@Inject(MAT_DIALOG_DATA) public settings: Settings) { }
 

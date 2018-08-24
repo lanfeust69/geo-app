@@ -5,7 +5,10 @@ import { GameComponent } from '../game/game.component';
 import { HelpComponent } from '../help/help.component';
 import { SettingsComponent } from '../settings/settings.component';
 
+import { StatsService } from '../services/stats.service';
+
 import { Settings } from '../settings';
+import { QuerySettings } from '../stats';
 
 @Component({
   selector: 'geo-home',
@@ -31,7 +34,7 @@ export class HomeComponent {
   vW = this.vW0;
   vH = this.vH0;
 
-  constructor(private _renderer: Renderer2, private _dialog: MatDialog) { }
+  constructor(private _statsService: StatsService, private _renderer: Renderer2, private _dialog: MatDialog) { }
 
   onClick(event: MouseEvent) {
     let current = event.target as HTMLElement;
@@ -54,6 +57,7 @@ export class HomeComponent {
     });
 
     dialogRef.afterClosed().subscribe(() => {
+      this._statsService.setCurrentSettings(new QuerySettings(this.gameSettings));
       if (this.gameSettings.playScope !== playScope && this.game.isPlaying) {
         console.log('The play scope has changed, reset game');
         this.game.play();

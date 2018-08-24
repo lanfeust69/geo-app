@@ -1,5 +1,7 @@
 export type PlayScope = 'All' | 'Top 100' | 'Top 50' | 'Africa' | 'America' | 'Asia' | 'Europe' | 'Oceania';
 
+export const allPlayScopes: PlayScope[] = ['All', 'Top 100', 'Top 50', 'Africa', 'America', 'Asia', 'Europe', 'Oceania'];
+
 export class Settings {
     playScope: PlayScope = 'All';
     showName = false;

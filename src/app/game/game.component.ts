@@ -5,7 +5,9 @@ import { interval } from 'rxjs';
 
 import { Countries, Country, DataService } from '../services/data.service';
 import { FlagService } from '../services/flag.service';
+import { StatsService } from '../services/stats.service';
 import { PlayScope, Settings } from '../settings';
+import { Stats, Timing } from '../stats';
 
 @Component({
   // tslint:disable-next-line:component-selector : necessary to embed the component in svg
@@ -37,7 +39,9 @@ export class GameComponent implements OnInit {
   scores: number[];
   sumScores: number;
   started: Date;
+  countryStarted: Date;
   time: string;
+  currentStats: Stats;
   nbErrors = 0;
   nbHelp = 0;
 
@@ -51,6 +55,7 @@ export class GameComponent implements OnInit {
   constructor(
     private _dataService: DataService,
     private _flagService: FlagService,
+    private _statsService: StatsService,
     private _sanitizer: DomSanitizer,
     private _ngZone: NgZone) {}
 
@@ -115,6 +120,7 @@ export class GameComponent implements OnInit {
     this.locationFound = false;
     this.flagFound = false;
     this.setCountry(this.isoCodes[this.current]);
+    this.countryStarted = new Date();
   }
 
   countryClicked(countryCode: string) {
@@ -178,9 +184,15 @@ export class GameComponent implements OnInit {
       return;
     this.scores[this.current]--;
     this.sumScores--;
+    const elapsed = new Date().getTime() - this.countryStarted.getTime();
+    this.currentStats.countryTimings[this.country.name] = new Timing(elapsed);
+    // this.currentStats.timings[this.isoCodes[this.current]] = new Timing(elapsed);
     if (this.sumScores === 0) {
       this.isPlaying = false;
       this.showAll = true;
+      const gameTime = Math.floor(new Date().getTime() - this.started.getTime());
+      this.currentStats.gamesTiming = new Timing(gameTime);
+      this._statsService.updateStats(this.currentStats);
     } else {
       this.setRandomCountry();
     }
@@ -205,6 +217,7 @@ export class GameComponent implements OnInit {
   play() {
     this.playScope = this.settings.playScope;
     this.isPlaying = true;
+    this.currentStats = new Stats(this.settings);
     this.started = new Date();
     this.time = undefined;
     const filter = this.getFilter();

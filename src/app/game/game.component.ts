@@ -28,10 +28,12 @@ export class GameComponent implements OnInit {
 
   isoCodes: string[] = [];
   countries: Countries = {};
+  flagsReady = false;
+  ready = false;
 
   playScope: PlayScope = 'All';
   isPlaying = false;
-  showAll = false;
+  showAll = true;
   scores: number[];
   sumScores: number;
   started: Date;
@@ -56,7 +58,13 @@ export class GameComponent implements OnInit {
     this._dataService.getCountries().subscribe(countries => {
       this.countries = countries;
       this.isoCodes = Object.keys(countries);
-      this.play();
+      if (this.flagsReady)
+        this.ready = true;
+    });
+    this._flagService.getAll().subscribe(_ => {
+      this.flagsReady = true;
+      if (this.isoCodes.length > 0)
+        this.ready = true;
     });
     // usual dance so that protractor doesn't wait forever for this
     this._ngZone.runOutsideAngular(() =>
@@ -115,8 +123,6 @@ export class GameComponent implements OnInit {
       this.highlightCountry(countryCode);
       return;
     }
-    if (!this.started)
-      this.started = new Date();
     if (!this.settings.queryLocation || this.locationFound)
       return;
 
@@ -144,8 +150,6 @@ export class GameComponent implements OnInit {
   }
 
   checkName() {
-    if (!this.started)
-      this.started = new Date();
     if (this.inputName !== this.country.name)
       return;
     this.nameFound = true;
@@ -155,8 +159,6 @@ export class GameComponent implements OnInit {
   }
 
   checkCapital() {
-    if (!this.started)
-      this.started = new Date();
     if (this.country.capitals.indexOf(this.inputCapital) === -1)
       return;
     this.capitalFound = true;
@@ -203,7 +205,7 @@ export class GameComponent implements OnInit {
   play() {
     this.playScope = this.settings.playScope;
     this.isPlaying = true;
-    this.started = undefined;
+    this.started = new Date();
     this.time = undefined;
     const filter = this.getFilter();
     this.scores = this.isoCodes.map(c => filter(this.countries[c]) ? 1 : 0);

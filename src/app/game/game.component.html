@@ -1,27 +1,27 @@
 <div class="main-form">
   <div *ngIf="showFlag" [innerHTML]="flagSvg" title="click to enlarge" (click)="zoomFlagEvent.next(country.flag)"></div>
   <button *ngIf="isPlaying && settings.queryFlag && !flagFound" (click)="showFlagPicker()">Pick Flag</button>
-  <h2 *ngIf="settings.showName || showAll">{{country.name}}</h2>
+  <h2 *ngIf="country && (settings.showName || showAll)">{{country.name}}</h2>
   <div *ngIf="isPlaying && settings.queryName">
     <label>Name</label>
     <input type="text" #inputNameElem id="inputName" name="inputName" [(ngModel)]="inputName"
            (keyup.enter)="checkName()" (blur)="checkName()" />
     <input type="checkbox" disabled [(ngModel)]="nameFound" />
   </div>
-  <h3 *ngIf="settings.showCapital || showAll">{{country.capitals.join(' ou ')}}</h3>
+  <h3 *ngIf="country && (settings.showCapital || showAll)">{{country.capitals.join(' ou ')}}</h3>
   <div *ngIf="isPlaying && settings.queryCapital">
     <label>Capital</label>
     <input type="text" #inputCapitalElem id="inputCapital" name="inputCapital" [(ngModel)]="inputCapital"
            (keyup.enter)="checkCapital()" (blur)="checkCapital()" />
     <input type="checkbox" disabled [(ngModel)]="capitalFound" />
   </div>
-  <label *ngIf="isPlaying && settings.queryLocation && (settings.queryName || settings.queryCapital)">
+  <label *ngIf="isPlaying && settings.queryLocation && (settings.queryName || settings.queryCapital || settings.queryFlag)">
     <input type="checkbox" disabled [(ngModel)]="locationFound" />Located
   </label>
   <div class="play-buttons">
     <button *ngIf="isPlaying" (click)="help()">Help</button>
     <button *ngIf="isPlaying" (click)="explore()">Explore</button>
-    <div *ngIf="!isPlaying">
+    <div *ngIf="ready && !isPlaying">
       <button (click)="play()">Play</button>
     </div>
   </div>

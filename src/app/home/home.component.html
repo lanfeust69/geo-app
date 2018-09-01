@@ -3,9 +3,19 @@
 </div>
 <geo-flag-picker id="flag-picker" [hidden]="!showFlagPicker" (flagClicked)="flagClicked($event)"></geo-flag-picker>
 <div id="menu-button-div">
-  <button mat-icon-button (click)="openDialog()">
-    <mat-icon>settings</mat-icon>
-  </button>￼
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openSettingsDialog()">
+      <mat-icon>settings</mat-icon>
+      <span>Settings</span>
+    </button>
+    <button mat-menu-item (click)="openHelpDialog()">
+      <mat-icon>help</mat-icon>
+      <span>Help</span>
+    </button>
+  </mat-menu>
 </div>
 <div>
   <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg2985" [attr.viewBox]="viewBox" width="100%"

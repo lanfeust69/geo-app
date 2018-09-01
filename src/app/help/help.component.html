@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Help</h1>
+<div mat-dialog-content class="mat-typography">
+    <p>This is a simple geographic quiz game.</p>
+
+    <p>In <code>Play</code> mode, depending on the selected options in the <code>Settings</code> dialog,
+      you will be shown some information about a country, and asked others, among :</p>
+    <ul>
+      <li>its flag</li>
+      <li>its location</li>
+      <li>its name</li>
+      <li>its capital (or one of its capitals for some countries)</li>
+    </ul>
+
+    <p>Note that text queries require an exact match against the reference data, including casing,
+      accents (even on uppercase letters), spaces, quotes, dashes.</p>
+
+    <p>In <code>Explore</code> mode, clicking on a country on the map will display all its information.</p>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="center">
+  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</div>

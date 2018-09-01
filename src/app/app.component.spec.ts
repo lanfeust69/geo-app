@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MatCheckboxModule, MatDialogModule, MatIconModule, MatSelectModule } from '@angular/material';
+import { MatCheckboxModule, MatDialogModule, MatIconModule, MatMenuModule, MatSelectModule } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
 import { FlagPickerComponent } from './flag-picker/flag-picker.component';
@@ -16,7 +17,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatSelectModule ],
+      imports: [ FormsModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatMenuModule, MatSelectModule, RouterTestingModule ],
       declarations: [
         AppComponent, FlagPickerComponent, GameComponent, HomeComponent, SettingsComponent
       ],

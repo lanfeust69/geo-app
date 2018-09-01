@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MatDialogModule, MatIconModule } from '@angular/material';
+import { MatDialogModule, MatIconModule, MatMenuModule } from '@angular/material';
 
 import { FlagPickerComponent } from '../flag-picker/flag-picker.component';
 import { GameComponent } from '../game/game.component';
@@ -17,7 +17,7 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, MatDialogModule, MatIconModule ],
+      imports: [ FormsModule, MatDialogModule, MatIconModule, MatMenuModule ],
       declarations: [ FlagPickerComponent, GameComponent, HomeComponent ],
       providers: [
         { provide: DataService, useValue: dataServiceStub },

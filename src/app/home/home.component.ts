@@ -2,6 +2,7 @@ import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { GameComponent } from '../game/game.component';
+import { HelpComponent } from '../help/help.component';
 import { SettingsComponent } from '../settings/settings.component';
 
 import { Settings } from '../settings';
@@ -46,7 +47,7 @@ export class HomeComponent {
     console.log('Not in a country');
   }
 
-  openDialog(): void {
+  openSettingsDialog(): void {
     const playScope = this.gameSettings.playScope;
     const dialogRef = this._dialog.open(SettingsComponent, {
       data: this.gameSettings
@@ -58,6 +59,10 @@ export class HomeComponent {
         this.game.play();
       }
     });
+  }
+
+  openHelpDialog(): void {
+    this._dialog.open(HelpComponent);
   }
 
   flagClicked(countryCode) {

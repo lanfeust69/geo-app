@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { GameComponent } from '../game/game.component';
@@ -15,7 +15,7 @@ import { QuerySettings } from '../stats';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   @ViewChild('game') game: GameComponent;
   @ViewChild('world') worldElem: ElementRef;
 
@@ -35,6 +35,12 @@ export class HomeComponent {
   vH = this.vH0;
 
   constructor(private _statsService: StatsService, private _renderer: Renderer2, private _dialog: MatDialog) { }
+
+  ngOnInit() {
+    const fromStorage = localStorage.getItem('settings');
+    this.gameSettings = fromStorage ? JSON.parse(fromStorage) : new Settings();
+    this._statsService.setCurrentSettings(new QuerySettings(this.gameSettings));
+  }
 
   onClick(event: MouseEvent) {
     let current = event.target as HTMLElement;
@@ -58,6 +64,7 @@ export class HomeComponent {
 
     dialogRef.afterClosed().subscribe(() => {
       this._statsService.setCurrentSettings(new QuerySettings(this.gameSettings));
+      localStorage.setItem('settings', JSON.stringify(this.gameSettings));
       if (this.gameSettings.playScope !== playScope && this.game.isPlaying) {
         console.log('The play scope has changed, reset game');
         this.game.play();

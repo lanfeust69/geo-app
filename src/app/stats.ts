@@ -32,8 +32,9 @@ export class Stats {
   gamesTiming: Timing;
   countryTimings: { [index: string]: Timing } = {};
 
-  constructor(settings: Settings) {
-    this.settings = new QuerySettings(settings);
+  constructor(settings?: Settings) {
+    if (settings)
+      this.settings = new QuerySettings(settings);
   }
 
   merge(other: Stats) {

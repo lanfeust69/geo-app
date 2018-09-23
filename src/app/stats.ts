@@ -19,11 +19,12 @@ export class QuerySettings {
 }
 
 export class Timing {
+  last: number;
   min: number;
   max: number;
   average: number;
 
-  constructor(t: number) { this.min = this.max = this.average = t; }
+  constructor(t: number) { this.last = this.min = this.max = this.average = t; }
 }
 
 export class Stats {
@@ -44,11 +45,13 @@ export class Stats {
     if (Object.keys(other.countryTimings).length !== countries.length || countries.some(c => !(c in other.countryTimings)))
       throw new Error('Cannot merge stats with different timings');
     const nbGames = this.nbGames + other.nbGames;
+    this.gamesTiming.last = other.gamesTiming.last;
     this.gamesTiming.min = Math.min(this.gamesTiming.min, other.gamesTiming.min);
     this.gamesTiming.max = Math.max(this.gamesTiming.max, other.gamesTiming.max);
     const totalGamesTime = this.gamesTiming.average * this.nbGames + other.gamesTiming.average * other.nbGames;
     this.gamesTiming.average = Math.floor(totalGamesTime / nbGames);
     countries.forEach(c => {
+      this.countryTimings[c].last = other.countryTimings[c].last;
       this.countryTimings[c].min = Math.min(this.countryTimings[c].min, other.countryTimings[c].min);
       this.countryTimings[c].max = Math.max(this.countryTimings[c].max, other.countryTimings[c].max);
       const totalTime = this.countryTimings[c].average * this.nbGames + other.countryTimings[c].average * other.nbGames;

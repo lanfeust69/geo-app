@@ -44,6 +44,7 @@ export class StatsComponent implements AfterViewInit, OnInit {
         return;
       const countryTimings = Object.keys(stats.countryTimings).sort().map(c => ({
         country: c,
+        last: stats.countryTimings[c].last,
         average: stats.countryTimings[c].average,
         min: stats.countryTimings[c].min,
         max: stats.countryTimings[c].max
@@ -74,5 +75,25 @@ export class StatsComponent implements AfterViewInit, OnInit {
     }
     res += (Math.floor(timeMs / 100) / 10) + 's';
     return res;
+  }
+
+  getLastGameColor(timing: CountryTiming) {
+    if (timing.last < timing.average)
+      return 'green';
+    if (timing.last > timing.average)
+      return 'red';
+    return 'black';
+  }
+
+  getLastGameTrend(timing: CountryTiming) {
+    if (timing.last < timing.average - 250)
+      return '\u21A1';
+    if (timing.last < timing.average - 50)
+      return '\u2198';
+    if (timing.last > timing.average + 250)
+      return '\u219F';
+    if (timing.last > timing.average + 50)
+      return '\u2197';
+    return '\u2192';
   }
 }

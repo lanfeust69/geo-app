@@ -92,10 +92,13 @@ export class GameComponent implements OnInit {
       this.highlightCountry(countryCode);
     else
       this.highlightCountry('');
-    if (this.settings.queryName)
-      this.inputNameElement.nativeElement.focus();
-    else if (this.settings.queryCapital)
-      this.inputCapitalElement.nativeElement.focus();
+    if (this.settings.queryName) {
+      if (this.inputNameElement)
+        this.inputNameElement.nativeElement.focus();
+    } else if (this.settings.queryCapital) {
+      if (this.inputCapitalElement)
+        this.inputCapitalElement.nativeElement.focus();
+    }
   }
 
   highlightCountry(countryCode: string) {

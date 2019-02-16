@@ -86,6 +86,10 @@ export class StatsComponent implements AfterViewInit, OnInit {
   }
 
   getLastGameTrend(timing: CountryTiming) {
+    if (timing.last === timing.min)
+      return '\u272A';
+    if (timing.last === timing.max)
+      return '\u26D2';
     if (timing.last < timing.average - 250)
       return '\u21A1';
     if (timing.last < timing.average - 50)

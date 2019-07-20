@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { GameComponent } from '../game/game.component';
 import { HelpComponent } from '../help/help.component';
@@ -16,8 +16,8 @@ import { QuerySettings } from '../stats';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('game') game: GameComponent;
-  @ViewChild('world') worldElem: ElementRef;
+  @ViewChild('game', { static: false }) game: GameComponent;
+  @ViewChild('world', { static: false }) worldElem: ElementRef;
 
   gameSettings = new Settings();
 

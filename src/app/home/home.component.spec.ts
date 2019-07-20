@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MatDialogModule, MatIconModule, MatMenuModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { FlagPickerComponent } from '../flag-picker/flag-picker.component';
 import { GameComponent } from '../game/game.component';

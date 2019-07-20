@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { StatsService } from '../services/stats.service';
 import { QuerySettings, Stats, Timing } from '../stats';
@@ -21,7 +22,7 @@ export class StatsComponent implements AfterViewInit, OnInit {
   stats: Stats;
   dataSource: MatTableDataSource<CountryTiming>;
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(private _statsService: StatsService) { }
 

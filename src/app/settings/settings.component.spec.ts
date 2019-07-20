@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MatCheckboxModule, MAT_DIALOG_DATA, MatDialogModule, MatSelectModule } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 import { SettingsComponent } from './settings.component';
 import { PlayScope, Settings } from '../settings';

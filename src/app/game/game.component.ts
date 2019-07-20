@@ -21,8 +21,8 @@ export class GameComponent implements OnInit {
   @Output() zoomFlagEvent = new EventEmitter<string>();
   @Output() showFlagPickerEvent = new EventEmitter<boolean>();
 
-  @ViewChild('inputNameElem') inputNameElement: ElementRef;
-  @ViewChild('inputCapitalElem') inputCapitalElement: ElementRef;
+  @ViewChild('inputNameElem', { static: false }) inputNameElement: ElementRef;
+  @ViewChild('inputCapitalElem', { static: false }) inputCapitalElement: ElementRef;
 
   current: number;
   country: Country;

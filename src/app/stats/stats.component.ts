@@ -6,8 +6,12 @@ import { StatsService } from '../services/stats.service';
 import { QuerySettings, Stats, Timing } from '../stats';
 import { allPlayScopes, PlayScope } from '../settings';
 
-class CountryTiming extends Timing {
+class CountryTiming {
   country: string;
+  last: number;
+  average: number;
+  min: number;
+  max: number;
 }
 
 @Component({

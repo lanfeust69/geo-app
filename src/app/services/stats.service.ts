@@ -40,5 +40,13 @@ export class StatsService {
     this._allStats = fromStorage ?
       new Map<string, Stats>(JSON.parse(fromStorage).map(([k, v]) => [k, Object.assign(new Stats(), v)]))
       : new Map<string, Stats>();
+    // now keeping sum of times instead of average (better handling of rounding)
+    this._allStats.forEach((stats: Stats, _: string) => {
+      if (stats.gamesTiming.sum > 0)
+        return;
+      stats.gamesTiming.sum = stats.gamesTiming.average * stats.nbGames;
+      Object.keys(stats.countryTimings).forEach(c =>
+        stats.countryTimings[c].sum = stats.countryTimings[c].average * stats.nbGames);
+    });
   }
 }

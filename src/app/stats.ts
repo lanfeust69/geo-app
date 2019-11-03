@@ -23,8 +23,9 @@ export class Timing {
   min: number;
   max: number;
   average: number;
+  sum: number;
 
-  constructor(t: number) { this.last = this.min = this.max = this.average = t; }
+  constructor(t: number) { this.last = this.min = this.max = this.average = this.sum = t; }
 }
 
 export class Stats {
@@ -48,14 +49,14 @@ export class Stats {
     this.gamesTiming.last = other.gamesTiming.last;
     this.gamesTiming.min = Math.min(this.gamesTiming.min, other.gamesTiming.min);
     this.gamesTiming.max = Math.max(this.gamesTiming.max, other.gamesTiming.max);
-    const totalGamesTime = this.gamesTiming.average * this.nbGames + other.gamesTiming.average * other.nbGames;
-    this.gamesTiming.average = Math.floor(totalGamesTime / nbGames);
+    this.gamesTiming.sum = this.gamesTiming.sum + other.gamesTiming.sum;
+    this.gamesTiming.average = Math.floor(this.gamesTiming.sum / nbGames);
     countries.forEach(c => {
       this.countryTimings[c].last = other.countryTimings[c].last;
       this.countryTimings[c].min = Math.min(this.countryTimings[c].min, other.countryTimings[c].min);
       this.countryTimings[c].max = Math.max(this.countryTimings[c].max, other.countryTimings[c].max);
-      const totalTime = this.countryTimings[c].average * this.nbGames + other.countryTimings[c].average * other.nbGames;
-      this.countryTimings[c].average = Math.floor(totalTime / nbGames);
+      this.countryTimings[c].sum = this.countryTimings[c].sum + other.countryTimings[c].sum;
+      this.countryTimings[c].average = Math.floor(this.countryTimings[c].sum / nbGames);
     });
     this.nbGames = nbGames;
   }

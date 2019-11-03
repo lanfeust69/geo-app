@@ -20,11 +20,13 @@ export class GameComponent implements OnInit {
   @Output() highlightCountryEvent = new EventEmitter<string>();
   @Output() zoomFlagEvent = new EventEmitter<string>();
   @Output() showFlagPickerEvent = new EventEmitter<boolean>();
+  @Output() showPreviewEvent = new EventEmitter<string>();
 
   @ViewChild('inputNameElem', { static: false }) inputNameElement: ElementRef;
   @ViewChild('inputCapitalElem', { static: false }) inputCapitalElement: ElementRef;
 
   current: number;
+  nextCountry = -1;
   country: Country;
   flagSvg: SafeHtml;
 
@@ -108,14 +110,23 @@ export class GameComponent implements OnInit {
   setRandomCountry() {
     if (this.sumScores === 0)
       return;
-    const r = Math.floor(Math.random() * this.sumScores) + 1;
-    let i = 0;
-    let s = this.scores[i];
-    while (s < r) {
-      i++;
-      s += this.scores[i];
+    let next = -1;
+    if (this.nextCountry !== -1) {
+      if (this.sumScores > 1) {
+        // assume will be found
+        this.sumScores--;
+        this.scores[this.nextCountry]--;
+        next = this.drawRandomCountry();
+        this.scores[this.nextCountry]++;
+        this.sumScores++;
+      }
+      this.current = this.nextCountry;
+      this.nextCountry = next;
+    } else {
+      // most likely is start of game (else error on last one)
+      this.nextCountry = this.drawRandomCountry();
+      this.setRandomCountry();
     }
-    this.current = i;
     this.inputName = '';
     this.nameFound = false;
     this.inputCapital = '';
@@ -123,7 +134,19 @@ export class GameComponent implements OnInit {
     this.locationFound = false;
     this.flagFound = false;
     this.setCountry(this.isoCodes[this.current]);
+    this.showPreviewEvent.next(this.nextCountry === -1 ? '' : this.isoCodes[this.nextCountry]);
     this.countryStarted = new Date();
+  }
+
+  drawRandomCountry(): number {
+    const r = Math.floor(Math.random() * this.sumScores) + 1;
+    let i = 0;
+    let s = this.scores[i];
+    while (s < r) {
+      i++;
+      s += this.scores[i];
+    }
+    return i;
   }
 
   countryClicked(countryCode: string) {
@@ -189,10 +212,10 @@ export class GameComponent implements OnInit {
     this.sumScores--;
     const elapsed = new Date().getTime() - this.countryStarted.getTime();
     this.currentStats.countryTimings[this.country.name] = new Timing(elapsed);
-    // this.currentStats.timings[this.isoCodes[this.current]] = new Timing(elapsed);
     if (this.sumScores === 0) {
       this.isPlaying = false;
       this.showAll = true;
+      this.nextCountry = -1;
       const gameTime = Math.floor(new Date().getTime() - this.started.getTime());
       this.currentStats.gamesTiming = new Timing(gameTime);
       this._statsService.updateStats(this.currentStats);
@@ -215,6 +238,7 @@ export class GameComponent implements OnInit {
     this.highlightCountry(this.isoCodes[this.current]);
     this.started = undefined;
     this.sumScores = 0;
+    this.nextCountry = -1;
   }
 
   play() {

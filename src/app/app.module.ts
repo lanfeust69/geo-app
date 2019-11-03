@@ -21,6 +21,7 @@ import { GameComponent } from './game/game.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FlagPickerComponent } from './flag-picker/flag-picker.component';
 import { StatsComponent } from './stats/stats.component';
+import { PreviewComponent } from './preview/preview.component';
 import { HelpComponent } from './help/help.component';
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
     HomeComponent,
     GameComponent,
     SettingsComponent,
+    PreviewComponent,
     FlagPickerComponent,
     StatsComponent,
     HelpComponent

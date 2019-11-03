@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { GameComponent } from '../game/game.component';
 import { HelpComponent } from '../help/help.component';
+import { PreviewComponent } from '../preview/preview.component';
 import { SettingsComponent } from '../settings/settings.component';
 
 import { StatsService } from '../services/stats.service';
@@ -17,6 +18,7 @@ import { QuerySettings } from '../stats';
 })
 export class HomeComponent implements OnInit {
   @ViewChild('game', { static: false }) game: GameComponent;
+  @ViewChild('preview', { static: false }) preview: PreviewComponent;
   @ViewChild('world', { static: false }) worldElem: ElementRef;
 
   gameSettings = new Settings();

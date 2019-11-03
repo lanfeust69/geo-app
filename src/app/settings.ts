@@ -12,4 +12,5 @@ export class Settings {
     queryLocation = true;
     showFlag = true;
     queryFlag = false;
+    showNext = true;
 }

@@ -1,12 +1,15 @@
 <h1 mat-dialog-title>Game Settings</h1>
 <div mat-dialog-content class="mat-typography">
-  <div id="play-scope" fxLayout="row" fxLayoutGap="10px">
+  <div class="separator" fxLayout="row" fxLayoutGap="10px">
     <label fxFlex="100px">Play on</label>
     <div fxFlex="100px">
-    <mat-select [(value)]="settings.playScope">
-      <mat-option *ngFor="let s of playScopes" [value]="s">{{s}}</mat-option>
-    </mat-select>
+      <mat-select [(value)]="settings.playScope">
+        <mat-option *ngFor="let s of playScopes" [value]="s">{{s}}</mat-option>
+      </mat-select>
     </div>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px" class="separator">
+    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showNext">Show Next Query</mat-checkbox>
   </div>
   <div fxLayout="row" fxLayoutGap="10px">
     <label fxFlex="100px">Name</label>

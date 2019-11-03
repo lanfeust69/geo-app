@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { StatsService } from '../services/stats.service';
-import { QuerySettings, Stats, Timing } from '../stats';
+import { QuerySettings, Stats } from '../stats';
 import { allPlayScopes, PlayScope } from '../settings';
 
 class CountryTiming {

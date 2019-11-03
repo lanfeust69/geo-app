@@ -6,6 +6,7 @@ export class QuerySettings {
   capital = false;
   location = true;
   flag = false;
+  next = true;
 
   constructor(settings?: Settings) {
     if (!settings)
@@ -15,6 +16,7 @@ export class QuerySettings {
     this.capital = settings.queryCapital;
     this.location = settings.queryLocation;
     this.flag = settings.queryFlag;
+    this.next = settings.showNext;
   }
 }
 

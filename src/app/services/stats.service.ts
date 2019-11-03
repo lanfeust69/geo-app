@@ -41,12 +41,23 @@ export class StatsService {
       new Map<string, Stats>(JSON.parse(fromStorage).map(([k, v]) => [k, Object.assign(new Stats(), v)]))
       : new Map<string, Stats>();
     // now keeping sum of times instead of average (better handling of rounding)
-    this._allStats.forEach((stats: Stats, _: string) => {
+    // and separate games with or withou preview enabled
+    const toRename: [string, string][] = [];
+    this._allStats.forEach((stats: Stats, key: string) => {
+      const querySettings = JSON.parse(key);
+      if (!('next' in querySettings)) {
+        querySettings.next = false;
+        toRename.push([key, JSON.stringify(querySettings)]);
+      }
       if (stats.gamesTiming.sum > 0)
         return;
       stats.gamesTiming.sum = stats.gamesTiming.average * stats.nbGames;
       Object.keys(stats.countryTimings).forEach(c =>
         stats.countryTimings[c].sum = stats.countryTimings[c].average * stats.nbGames);
+    });
+    toRename.forEach(([oldKey, newKey]) => {
+      this._allStats.set(newKey, this._allStats.get(oldKey));
+      this._allStats.delete(oldKey);
     });
   }
 }

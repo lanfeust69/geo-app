@@ -1,0 +1,6 @@
+<div *ngIf="_country && settings.showNext" class="preview">
+  <p>Next</p>
+  <div *ngIf="settings.showFlag" [innerHTML]="flagSvg"></div>
+  <h2 *ngIf="settings.showName">{{_country.name}}</h2>
+  <h3 *ngIf="settings.showCapital">{{_country.capitals.join(' ou ')}}</h3>
+</div>

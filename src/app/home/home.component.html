@@ -2830,7 +2830,10 @@
       <circle id="tk_" class="circlexx tk" r="6.01303" cy="840.579" cx="2708.51"/>
     </g>
     <foreignObject #game geo-game x="1020" y="760" width="290" height="700" [settings]="gameSettings"
-      (highlightCountryEvent)="highlightCountry($event)" (zoomFlagEvent)="zoomFlag($event)" (showFlagPickerEvent)="showFlagPicker = $event">
+      (highlightCountryEvent)="highlightCountry($event)" (showPreviewEvent)="preview.country = $event"
+      (zoomFlagEvent)="zoomFlag($event)" (showFlagPickerEvent)="showFlagPicker = $event">
+    </foreignObject>
+    <foreignObject #preview geo-preview x="1750" y="850" width="290" height="400" [settings]="gameSettings">
     </foreignObject>
   </svg>
 </div>

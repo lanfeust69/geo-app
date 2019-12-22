@@ -3,8 +3,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { StatsService } from '../services/stats.service';
-import { QuerySettings, Stats } from '../stats';
-import { allPlayScopes, PlayScope } from '../settings';
+import { Stats } from '../stats';
+import { allPlayScopes, PlayScope, Settings } from '../settings';
 
 class CountryTiming {
   country: string;
@@ -22,7 +22,7 @@ class CountryTiming {
 export class StatsComponent implements AfterViewInit, OnInit {
   playScopes: PlayScope[] = allPlayScopes;
 
-  querySettings: QuerySettings = new QuerySettings();
+  settings: Settings = new Settings();
   stats: Stats;
   dataSource: MatTableDataSource<CountryTiming>;
 
@@ -31,7 +31,7 @@ export class StatsComponent implements AfterViewInit, OnInit {
   constructor(private _statsService: StatsService) { }
 
   ngOnInit() {
-    this.querySettings = this._statsService.getCurrentSettings();
+    this.settings = this._statsService.getCurrentSettings();
     this.loadStats();
   }
 
@@ -43,7 +43,7 @@ export class StatsComponent implements AfterViewInit, OnInit {
   }
 
   loadStats() {
-    this._statsService.getStats(this.querySettings).subscribe(stats => {
+    this._statsService.getStats(this.settings).subscribe(stats => {
       this.stats = stats;
       if (!stats)
         return;

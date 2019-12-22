@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { QuerySettings, Stats } from '../stats';
+import { Settings } from '../settings';
+import { Stats } from '../stats';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatsService {
-  private _currentQuerySettings: QuerySettings = new QuerySettings();
+  private _currentSettings: Settings = new Settings();
   private _allStats: Map<string, Stats>;
 
-  getCurrentSettings(): QuerySettings {
-    return this._currentQuerySettings;
+  getCurrentSettings(): Settings {
+    return this._currentSettings;
   }
 
-  setCurrentSettings(settings: QuerySettings) {
-    this._currentQuerySettings = settings;
+  setCurrentSettings(settings: Settings) {
+    this._currentSettings = { ...settings };
   }
 
-  getStats(settings: QuerySettings): Observable<Stats> {
+  getStats(settings: Settings): Observable<Stats> {
     this.checkLoaded();
     return of(this._allStats.get(JSON.stringify(settings)));
   }
@@ -41,13 +42,27 @@ export class StatsService {
       new Map<string, Stats>(JSON.parse(fromStorage).map(([k, v]) => [k, Object.assign(new Stats(), v)]))
       : new Map<string, Stats>();
     // now keeping sum of times instead of average (better handling of rounding)
-    // and separate games with or withou preview enabled
+    // and use complete settings for key
     const toRename: [string, string][] = [];
     this._allStats.forEach((stats: Stats, key: string) => {
-      const querySettings = JSON.parse(key);
-      if (!('next' in querySettings)) {
-        querySettings.next = false;
-        toRename.push([key, JSON.stringify(querySettings)]);
+      const settings = JSON.parse(key);
+      if (!('showName' in settings)) {
+        // old QuerySettings object, replaced with same Settings as for play
+        // no way to have a real info for showXxx : just pretend everything is false,
+        // so that we can query old stats, but will never be updated
+        const newSettings: Settings = {
+          playScope: settings.scope,
+          showName: false,
+          queryName: settings.name,
+          showCapital: false,
+          queryCapital: settings.capital,
+          showLocation: false,
+          queryLocation: settings.location,
+          showFlag: false,
+          queryFlag: settings.flag,
+          showNext: 'next' in settings ? settings.next : false
+        };
+        toRename.push([key, JSON.stringify(newSettings)]);
       }
       if (stats.gamesTiming.sum > 0)
         return;

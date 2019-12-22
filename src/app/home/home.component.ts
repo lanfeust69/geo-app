@@ -9,7 +9,6 @@ import { SettingsComponent } from '../settings/settings.component';
 import { StatsService } from '../services/stats.service';
 
 import { Settings } from '../settings';
-import { QuerySettings } from '../stats';
 
 @Component({
   selector: 'geo-home',
@@ -41,7 +40,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     const fromStorage = localStorage.getItem('settings');
     this.gameSettings = fromStorage ? JSON.parse(fromStorage) : new Settings();
-    this._statsService.setCurrentSettings(new QuerySettings(this.gameSettings));
+    this._statsService.setCurrentSettings(this.gameSettings);
   }
 
   onClick(event: MouseEvent) {
@@ -65,7 +64,7 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this._statsService.setCurrentSettings(new QuerySettings(this.gameSettings));
+      this._statsService.setCurrentSettings(this.gameSettings);
       localStorage.setItem('settings', JSON.stringify(this.gameSettings));
       if (this.gameSettings.playScope !== playScope && this.game.isPlaying) {
         console.log('The play scope has changed, reset game');

@@ -5,16 +5,21 @@
   <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center">
     <label fxFlex="100px">Played on :</label>
     <div fxFlex="100px">
-      <mat-select [(value)]="querySettings.scope" (selectionChange)="onChanged()">
+      <mat-select [(value)]="settings.playScope" (selectionChange)="onChanged()">
         <mat-option *ngFor="let s of playScopes" [value]="s">{{s}}</mat-option>
       </mat-select>
     </div>
     <label fxFlex="100px">Queried on :</label>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="querySettings.name" (change)="onChanged()">Name</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="querySettings.capital" (change)="onChanged()">Capital</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="querySettings.location" (change)="onChanged()">Location</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="querySettings.flag" (change)="onChanged()">Flag</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="querySettings.next" (change)="onChanged()">With Next</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.queryName" (change)="onChanged()">Name</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.queryCapital" (change)="onChanged()">Capital</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.queryLocation" (change)="onChanged()">Location</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.queryFlag" (change)="onChanged()">Flag</mat-checkbox>
+    <label fxFlex="100px">Given :</label>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showName" (change)="onChanged()">Name</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showCapital" (change)="onChanged()">Capital</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showLocation" (change)="onChanged()">Location</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showFlag" (change)="onChanged()">Flag</mat-checkbox>
+    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showNext" (change)="onChanged()">Next</mat-checkbox>
   </div>
 </div>
 <mat-divider></mat-divider>

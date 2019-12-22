@@ -1,24 +1,4 @@
-import { PlayScope, Settings } from './settings';
-
-export class QuerySettings {
-  scope: PlayScope = 'All';
-  name = false;
-  capital = false;
-  location = true;
-  flag = false;
-  next = true;
-
-  constructor(settings?: Settings) {
-    if (!settings)
-      return;
-    this.scope = settings.playScope;
-    this.name = settings.queryName;
-    this.capital = settings.queryCapital;
-    this.location = settings.queryLocation;
-    this.flag = settings.queryFlag;
-    this.next = settings.showNext;
-  }
-}
+import { Settings } from './settings';
 
 export class Timing {
   last: number;
@@ -31,14 +11,14 @@ export class Timing {
 }
 
 export class Stats {
-  readonly settings: QuerySettings;
+  readonly settings: Settings;
   nbGames = 1;
   gamesTiming: Timing;
   countryTimings: { [index: string]: Timing } = {};
 
   constructor(settings?: Settings) {
     if (settings)
-      this.settings = new QuerySettings(settings);
+      this.settings = { ...settings };
   }
 
   merge(other: Stats) {

@@ -17,9 +17,9 @@ import { QuerySettings } from '../stats';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('game', { static: false }) game: GameComponent;
-  @ViewChild('preview', { static: false }) preview: PreviewComponent;
-  @ViewChild('world', { static: false }) worldElem: ElementRef;
+  @ViewChild('game') game: GameComponent;
+  @ViewChild('preview') preview: PreviewComponent;
+  @ViewChild('world') worldElem: ElementRef;
 
   gameSettings = new Settings();
 

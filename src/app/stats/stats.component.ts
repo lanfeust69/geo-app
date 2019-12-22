@@ -26,7 +26,7 @@ export class StatsComponent implements AfterViewInit, OnInit {
   stats: Stats;
   dataSource: MatTableDataSource<CountryTiming>;
 
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private _statsService: StatsService) { }
 

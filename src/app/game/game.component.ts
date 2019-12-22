@@ -22,8 +22,8 @@ export class GameComponent implements OnInit {
   @Output() showFlagPickerEvent = new EventEmitter<boolean>();
   @Output() showPreviewEvent = new EventEmitter<string>();
 
-  @ViewChild('inputNameElem', { static: false }) inputNameElement: ElementRef;
-  @ViewChild('inputCapitalElem', { static: false }) inputCapitalElement: ElementRef;
+  @ViewChild('inputNameElem') inputNameElement: ElementRef;
+  @ViewChild('inputCapitalElem') inputCapitalElement: ElementRef;
 
   current: number;
   nextCountry = -1;

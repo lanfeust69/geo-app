@@ -1,9 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ConnectableObservable, Observable, of } from 'rxjs';
+import { ConnectableObservable, Observable, of, forkJoin } from 'rxjs';
 import { map, publish } from 'rxjs/operators';
 
-export interface SvgMap { [index: string]: string; }
+import { DataService } from './data.service';
+
+export interface FlagData {
+  svg: string;
+  group: number;
+}
+export interface SvgMap { [index: string]: FlagData; }
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +18,7 @@ export class FlagService {
   private _svgs: SvgMap;
   private _getAll: ConnectableObservable<SvgMap>;
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _dataService: DataService) { }
 
   getSvg(countryCode: string, width?: number, height?: number): Observable<string> {
     let replace = 'viewBox';
@@ -23,8 +29,8 @@ export class FlagService {
       replace = `width="${width}px" ` + replace;
     }
     if (this._svgs)
-      return of(this.uniqueClipPath(this._svgs[countryCode].replace('viewBox', replace)));
-    return this.getAll().pipe(map(res => this.uniqueClipPath(res[countryCode].replace('viewBox', replace))));
+      return of(this.uniqueClipPath(this._svgs[countryCode].svg.replace('viewBox', replace)));
+    return this.getAll().pipe(map(res => this.uniqueClipPath(res[countryCode].svg.replace('viewBox', replace))));
   }
 
   getAll(): Observable<SvgMap> {
@@ -32,8 +38,11 @@ export class FlagService {
       return of(this._svgs);
     if (this._getAll)
       return this._getAll;
-    this._getAll = this._http.get('assets/allFlags', { responseType: 'text' }).pipe(
-      map(data => {
+    this._getAll = forkJoin([this._http.get('assets/allFlags', { responseType: 'text' }), this._dataService.getCountries()])
+    .pipe(
+      map(result => {
+        const data = result[0];
+        const countries = result[1];
         const svgs: SvgMap = {};
         let curSvg = '';
         let curCountry = '';
@@ -41,14 +50,14 @@ export class FlagService {
           const match = /flag_of:(\w+)/.exec(line);
           if (match) {
             if (curCountry)
-              svgs[curCountry] = curSvg;
+              svgs[curCountry] = { svg: curSvg, group: countries[curCountry].flagGroup };
             curCountry = match[1];
             curSvg = '';
             continue;
           }
           curSvg += line + '\n';
         }
-        svgs[curCountry] = curSvg;
+        svgs[curCountry] = { svg: curSvg, group: countries[curCountry].flagGroup };
         this._svgs = svgs;
         this._getAll = null;
         return svgs;

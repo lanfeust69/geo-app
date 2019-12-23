@@ -10,6 +10,7 @@ export interface Country {
   flag: string;
   continent: string;
   rank: number;
+  flagGroup: number;
 }
 
 export interface Countries { [index: string]: Country; }
@@ -27,13 +28,21 @@ export class DataService {
     return this._http.get('assets/data.csv', { responseType: 'text' }).pipe(map(data => {
       const countries: Countries = {};
       for (const line of data.split(/\r?\n/)) {
-        const [name, capital, flag, isoCode, continent, rank] = line.split(/;/);
+        const [name, capital, flag, isoCode, continent, rank, flagGroup] = line.split(/;/);
         if (!isoCode)
           continue;
         if (isoCode in countries) {
           countries[isoCode].capitals.push(capital);
         } else {
-          countries[isoCode] = { isoCode, name, capitals: [capital], flag: `assets/flags/${flag}.svg`, continent, rank: +rank };
+          countries[isoCode] = {
+            isoCode,
+            name,
+            capitals: [capital],
+            flag: `assets/flags/${flag}.svg`,
+            continent,
+            rank: +rank,
+            flagGroup: +flagGroup
+          };
         }
       }
       this._countries = countries;

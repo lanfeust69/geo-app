@@ -46,7 +46,7 @@ const routes: Routes = [
     SettingsComponent
   ],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     BrowserModule,
     FormsModule,
     HttpClientModule,

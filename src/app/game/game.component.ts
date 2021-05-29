@@ -10,8 +10,8 @@ import { PlayScope, Settings } from '../settings';
 import { Stats, Timing } from '../stats';
 
 @Component({
-  // tslint:disable-next-line:component-selector : necessary to embed the component in svg
-  selector: '[geo-game]',
+  // necessary to embed the component in svg
+  selector: '[geo-game]', // eslint-disable-line @angular-eslint/component-selector
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })

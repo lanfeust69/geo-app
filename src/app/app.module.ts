@@ -31,38 +31,34 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    GameComponent,
-    SettingsComponent,
-    PreviewComponent,
-    FlagPickerComponent,
-    StatsComponent,
-    HelpComponent
-  ],
-  entryComponents: [
-    HelpComponent,
-    SettingsComponent
-  ],
-  imports: [
-    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FlexLayoutModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatIconModule,
-    MatMenuModule,
-    MatSelectModule,
-    MatSortModule,
-    MatTableModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        GameComponent,
+        SettingsComponent,
+        PreviewComponent,
+        FlagPickerComponent,
+        StatsComponent,
+        HelpComponent
+    ],
+    imports: [
+        RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatDialogModule,
+        MatDividerModule,
+        MatIconModule,
+        MatMenuModule,
+        MatSelectModule,
+        MatSortModule,
+        MatTableModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

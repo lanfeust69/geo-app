@@ -1,37 +1,37 @@
 <h1 mat-dialog-title>Game Settings</h1>
 <div mat-dialog-content class="mat-typography">
-  <div class="separator" fxLayout="row" fxLayoutGap="10px">
-    <label fxFlex="100px">Play on</label>
-    <div fxFlex="100px">
+  <div class="separator main-setting-row">
+    <label class="main-item-width">Play on</label>
+    <div style="width: 150px;">
       <mat-select [(value)]="settings.playScope">
         <mat-option *ngFor="let s of playScopes" [value]="s">{{s}}</mat-option>
       </mat-select>
     </div>
   </div>
-  <div fxLayout="row" fxLayoutGap="10px" class="separator">
-    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showNext">Show Next Query</mat-checkbox>
+  <div class="separator main-setting-row">
+    <mat-checkbox [(ngModel)]="settings.showNext">Show Next Query</mat-checkbox>
   </div>
-  <div fxLayout="row" fxLayoutGap="10px">
-    <label fxFlex="100px">Name</label>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="showName">Show</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="queryName">Query</mat-checkbox>
+  <div class="main-setting-row">
+    <label class="main-item-width">Name</label>
+    <mat-checkbox class="main-item-width" [(ngModel)]="showName">Show</mat-checkbox>
+    <mat-checkbox class="main-item-width" [(ngModel)]="queryName">Query</mat-checkbox>
   </div>
-  <div fxLayout="row" fxLayoutGap="10px">
-    <label fxFlex="100px">Capital</label>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="showCapital">Show</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="queryCapital">Query</mat-checkbox>
+  <div class="main-setting-row">
+    <label class="main-item-width">Capital</label>
+    <mat-checkbox class="main-item-width" [(ngModel)]="showCapital">Show</mat-checkbox>
+    <mat-checkbox class="main-item-width" [(ngModel)]="queryCapital">Query</mat-checkbox>
   </div>
-  <div fxLayout="row" fxLayoutGap="10px">
-    <label fxFlex="100px">Location</label>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="showLocation">Show</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="queryLocation">Query</mat-checkbox>
+  <div class="main-setting-row">
+    <label class="main-item-width">Location</label>
+    <mat-checkbox class="main-item-width" [(ngModel)]="showLocation">Show</mat-checkbox>
+    <mat-checkbox class="main-item-width" [(ngModel)]="queryLocation">Query</mat-checkbox>
   </div>
-  <div fxLayout="row" fxLayoutGap="10px">
-    <label fxFlex="100px">Flag</label>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="showFlag">Show</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="queryFlag">Query</mat-checkbox>
+  <div class="main-setting-row">
+    <label class="main-item-width">Flag</label>
+    <mat-checkbox class="main-item-width" [(ngModel)]="showFlag">Show</mat-checkbox>
+    <mat-checkbox class="main-item-width" [(ngModel)]="queryFlag">Query</mat-checkbox>
   </div>
 </div>
-<div mat-dialog-actions fxLayout="row" fxLayoutAlign="center">
+<div mat-dialog-actions align="center">
   <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
 </div>

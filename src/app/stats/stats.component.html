@@ -2,30 +2,30 @@
   <mat-icon>arrow_back</mat-icon>
 </a>
 <div class="mat-typography">
-  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center">
-    <label fxFlex="100px">Played on :</label>
-    <div fxFlex="100px">
+  <div class="main-setting-row">
+    <label class="main-item-width">Played on :</label>
+    <div style="width: 150px;">
       <mat-select [(value)]="settings.playScope" (selectionChange)="onChanged()">
         <mat-option *ngFor="let s of playScopes" [value]="s">{{s}}</mat-option>
       </mat-select>
     </div>
-    <label fxFlex="100px">Queried on :</label>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.queryName" (change)="onChanged()">Name</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.queryCapital" (change)="onChanged()">Capital</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.queryLocation" (change)="onChanged()">Location</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.queryFlag" (change)="onChanged()">Flag</mat-checkbox>
-    <label fxFlex="100px">Given :</label>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showName" (change)="onChanged()">Name</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showCapital" (change)="onChanged()">Capital</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showLocation" (change)="onChanged()">Location</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showFlag" (change)="onChanged()">Flag</mat-checkbox>
-    <mat-checkbox fxFlex="100px" [(ngModel)]="settings.showNext" (change)="onChanged()">Next</mat-checkbox>
+    <label class="main-item-width">Queried on :</label>
+    <mat-checkbox class="main-item-width" [(ngModel)]="settings.queryName" (change)="onChanged()">Name</mat-checkbox>
+    <mat-checkbox class="main-item-width" [(ngModel)]="settings.queryCapital" (change)="onChanged()">Capital</mat-checkbox>
+    <mat-checkbox class="main-item-width" [(ngModel)]="settings.queryLocation" (change)="onChanged()">Location</mat-checkbox>
+    <mat-checkbox class="main-item-width" [(ngModel)]="settings.queryFlag" (change)="onChanged()">Flag</mat-checkbox>
+    <label class="main-item-width">Given :</label>
+    <mat-checkbox class="main-item-width" [(ngModel)]="settings.showName" (change)="onChanged()">Name</mat-checkbox>
+    <mat-checkbox class="main-item-width" [(ngModel)]="settings.showCapital" (change)="onChanged()">Capital</mat-checkbox>
+    <mat-checkbox class="main-item-width" [(ngModel)]="settings.showLocation" (change)="onChanged()">Location</mat-checkbox>
+    <mat-checkbox class="main-item-width" [(ngModel)]="settings.showFlag" (change)="onChanged()">Flag</mat-checkbox>
+    <mat-checkbox class="main-item-width" [(ngModel)]="settings.showNext" (change)="onChanged()">Next</mat-checkbox>
   </div>
 </div>
 <mat-divider></mat-divider>
 <div *ngIf="stats" class="mat-typography">
-  <h4 fxLayoutAlign="center">Played {{stats.nbGames}} game{{stats.nbGames &gt; 1 ? 's' : ''}}</h4>
-  <h4 fxLayoutAlign="center">
+  <h4 class="centered">Played {{stats.nbGames}} game{{stats.nbGames &gt; 1 ? 's' : ''}}</h4>
+  <h4 class="centered">
     Last Game Time : {{getLongTime(stats.gamesTiming.last)}}
     &nbsp; - &nbsp; Average Time : {{getLongTime(stats.gamesTiming.average)}}
     &nbsp; - &nbsp; Best Time : {{getLongTime(stats.gamesTiming.min)}}
@@ -58,6 +58,6 @@
     <mat-row *matRowDef="let row; columns: ['country', 'last', 'average', 'min', 'max'];"></mat-row>
   </mat-table>
 </div>
-<div *ngIf="!stats" fxLayout="row" fxLayoutAlign="center" class="mat-typography">
+<div *ngIf="!stats" class="mat-typography centered">
   No Data
 </div>

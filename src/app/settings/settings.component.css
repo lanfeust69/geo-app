@@ -1,7 +1,18 @@
-.mat-dialog-content {
+.mat-mdc-dialog-content {
     overflow-y: hidden;
 }
 
 .separator {
     margin-bottom: 20px;
+}
+
+.main-item-width {
+    width: 100px;
+}
+
+.main-setting-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 }

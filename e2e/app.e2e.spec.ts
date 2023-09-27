@@ -7,7 +7,7 @@ test.describe('geo-app App', () => {
     expect(menuButton).toBeTruthy();
     await menuButton.click();
 
-    const settingsButton = page.locator('div.mat-menu-content button').first();
+    const settingsButton = page.locator('div.mat-mdc-menu-content button').first();
     expect(settingsButton).toBeTruthy();
     await settingsButton.click();
     const settingsOkButton = page.locator('geo-settings button');

@@ -1,7 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
-import { interval } from 'rxjs';
 
 import { Countries, Country, DataService } from '../services/data.service';
 import { FlagService } from '../services/flag.service';
@@ -22,7 +20,7 @@ export class GameComponent implements OnInit {
   private _flagService = inject(FlagService);
   private _statsService = inject(StatsService);
   private _sanitizer = inject(DomSanitizer);
-  private _ngZone = inject(NgZone);
+  private _changeDetector = inject(ChangeDetectorRef);
 
   @Input() settings: Settings;
   @Output() highlightCountryEvent = new EventEmitter<string>();
@@ -66,17 +64,23 @@ export class GameComponent implements OnInit {
     this._dataService.getCountries().subscribe(countries => {
       this.countries = countries;
       this.isoCodes = Object.keys(countries);
-      if (this.flagsReady)
+      if (this.flagsReady) {
         this.ready = true;
+        this._changeDetector.detectChanges();
+      }
     });
     this._flagService.getAll().subscribe(_ => {
       this.flagsReady = true;
-      if (this.isoCodes.length > 0)
+      if (this.isoCodes.length > 0) {
         this.ready = true;
+        this._changeDetector.detectChanges();
+      }
     });
-    // usual dance so that protractor doesn't wait forever for this
-    this._ngZone.runOutsideAngular(() =>
-      interval(500).subscribe(_ => this._ngZone.run(() => this.setTime())));
+    setInterval(() => {
+      this.setTime();
+      if (this.isPlaying)
+        this._changeDetector.detectChanges();
+    }, 500);
   }
 
   setCountry(countryCode: string) {

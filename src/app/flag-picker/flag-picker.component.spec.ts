@@ -8,15 +8,11 @@ describe('FlagPickerComponent', () => {
   let component: FlagPickerComponent;
   let fixture: ComponentFixture<FlagPickerComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FlagPickerComponent ],
-      providers:    [ { provide: FlagService, useValue: flagServiceStub } ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [FlagPickerComponent],
+      providers: [{ provide: FlagService, useValue: flagServiceStub }]
+    });
     fixture = TestBed.createComponent(FlagPickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

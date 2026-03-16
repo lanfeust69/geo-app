@@ -20,9 +20,10 @@ const gridWalk: [number, number][] = [];
 grid.forEach((a, r) => a.forEach((v, c) => gridWalk[v - 1] = [r, c]));
 
 @Component({
-  selector: 'geo-flag-picker',
-  templateUrl: './flag-picker.component.html',
-  styleUrls: ['./flag-picker.component.css']
+    selector: 'geo-flag-picker',
+    templateUrl: './flag-picker.component.html',
+    styleUrls: ['./flag-picker.component.css'],
+    standalone: false
 })
 export class FlagPickerComponent implements OnInit {
   @Output() flagClicked = new EventEmitter<string>();

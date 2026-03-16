@@ -11,17 +11,13 @@ describe('SettingsComponent', () => {
   let component: SettingsComponent;
   let fixture: ComponentFixture<SettingsComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, MatCheckboxModule, MatDialogModule, MatSelectModule ],
-      declarations: [ SettingsComponent ],
+      imports: [FormsModule, MatCheckboxModule, MatDialogModule, MatSelectModule],
+      declarations: [SettingsComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: new Settings() }]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
+    });
     fixture = TestBed.createComponent(SettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

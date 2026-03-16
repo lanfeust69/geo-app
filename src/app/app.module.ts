@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -29,8 +29,7 @@ const routes: Routes = [
   { path: '**', redirectTo: '' },
 ];
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         HomeComponent,
         GameComponent,
@@ -40,11 +39,9 @@ const routes: Routes = [
         StatsComponent,
         HelpComponent
     ],
-    imports: [
-        RouterModule.forRoot(routes, {}),
+    bootstrap: [AppComponent], imports: [RouterModule.forRoot(routes, {}),
         BrowserModule,
         FormsModule,
-        HttpClientModule,
         BrowserAnimationsModule,
         MatButtonModule,
         MatCheckboxModule,
@@ -54,9 +51,5 @@ const routes: Routes = [
         MatMenuModule,
         MatSelectModule,
         MatSortModule,
-        MatTableModule
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
-})
+        MatTableModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

@@ -10,10 +10,11 @@ import { PlayScope, Settings } from '../settings';
 import { Stats, Timing } from '../stats';
 
 @Component({
-  // necessary to embed the component in svg
-  selector: '[geo-preview]', // eslint-disable-line @angular-eslint/component-selector
-  templateUrl: './preview.component.html',
-  styleUrls: ['./preview.component.css']
+    // necessary to embed the component in svg
+    selector: '[geo-preview]', // eslint-disable-line @angular-eslint/component-selector
+    templateUrl: './preview.component.html',
+    styleUrls: ['./preview.component.css'],
+    standalone: false
 })
 export class PreviewComponent implements OnInit {
   @Input() settings: Settings;

@@ -11,31 +11,27 @@ import { DataService } from '../services/data.service';
 import { FlagService } from '../services/flag.service';
 import { dataServiceStub, flagServiceStub } from '../services/service.stubs';
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
-
 describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+    let component: HomeComponent;
+    let fixture: ComponentFixture<HomeComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [ FormsModule, MatDialogModule, MatIconModule, MatMenuModule ],
-      declarations: [ FlagPickerComponent, GameComponent, HomeComponent ],
-      providers: [
-        { provide: DataService, useValue: dataServiceStub },
-        { provide: FlagService, useValue: flagServiceStub }
-      ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [FormsModule, MatDialogModule, MatIconModule, MatMenuModule],
+            declarations: [FlagPickerComponent, GameComponent, HomeComponent],
+            providers: [
+                { provide: DataService, useValue: dataServiceStub },
+                { provide: FlagService, useValue: flagServiceStub }
+            ]
+        });
+        fixture = TestBed.createComponent(HomeComponent);
+        component = fixture.componentInstance;
+        // probably no real point in test without the `detectChanges()`, but the angular components
+        // embedded in a SVG `foreignObject` don't work in tests...
+        // fixture.detectChanges();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

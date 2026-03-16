@@ -16,24 +16,24 @@ import { DataService } from './services/data.service';
 import { FlagService } from './services/flag.service';
 import { dataServiceStub, flagServiceStub } from './services/service.stubs';
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
+vi.setConfig({ testTimeout: 15000 });
 
 describe('AppComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [ FormsModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatMenuModule, MatSelectModule, RouterTestingModule ],
-      declarations: [
-        AppComponent, FlagPickerComponent, GameComponent, HomeComponent, SettingsComponent
-      ],
-      providers: [
-        { provide: DataService, useValue: dataServiceStub },
-        { provide: FlagService, useValue: flagServiceStub }
-      ]
-    }).compileComponents();
-  }));
-  it('should create the app', waitForAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [FormsModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatMenuModule, MatSelectModule, RouterTestingModule],
+            declarations: [
+                AppComponent, FlagPickerComponent, GameComponent, HomeComponent, SettingsComponent
+            ],
+            providers: [
+                { provide: DataService, useValue: dataServiceStub },
+                { provide: FlagService, useValue: flagServiceStub }
+            ]
+        });
+    });
+    it('should create the app', async () => {
+        const fixture = TestBed.createComponent(AppComponent);
+        const app = fixture.debugElement.componentInstance;
+        expect(app).toBeTruthy();
+    });
 });

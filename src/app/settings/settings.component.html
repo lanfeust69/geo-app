@@ -4,7 +4,9 @@
     <label class="main-item-width">Play on</label>
     <div style="width: 150px;">
       <mat-select [(value)]="settings.playScope">
-        <mat-option *ngFor="let s of playScopes" [value]="s">{{s}}</mat-option>
+        @for (s of playScopes; track s) {
+          <mat-option [value]="s">{{s}}</mat-option>
+        }
       </mat-select>
     </div>
   </div>

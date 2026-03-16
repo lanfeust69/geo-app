@@ -12,15 +12,11 @@ describe('StatsComponent', () => {
   let component: StatsComponent;
   let fixture: ComponentFixture<StatsComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [ FormsModule, MatCheckboxModule, MatDividerModule, MatIconModule, MatSelectModule, MatTableModule ],
-      declarations: [ StatsComponent ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [FormsModule, MatCheckboxModule, MatDividerModule, MatIconModule, MatSelectModule, MatTableModule],
+      declarations: [StatsComponent]
+    });
     fixture = TestBed.createComponent(StatsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

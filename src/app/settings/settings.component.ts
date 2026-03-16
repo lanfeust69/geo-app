@@ -4,9 +4,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { allPlayScopes, PlayScope, Settings } from '../settings';
 
 @Component({
-  selector: 'geo-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+    selector: 'geo-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.css'],
+    standalone: false
 })
 export class SettingsComponent {
   playScopes: PlayScope[] = allPlayScopes;

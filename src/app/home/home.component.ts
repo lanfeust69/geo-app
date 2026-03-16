@@ -11,9 +11,10 @@ import { StatsService } from '../services/stats.service';
 import { Settings } from '../settings';
 
 @Component({
-  selector: 'geo-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+    selector: 'geo-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    standalone: false
 })
 export class HomeComponent implements OnInit {
   @ViewChild('game') game: GameComponent;

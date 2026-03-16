@@ -1,3 +1,4 @@
+import 'zone.js/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
@@ -11,19 +12,15 @@ describe('PreviewComponent', () => {
   let component: PreviewComponent;
   let fixture: ComponentFixture<PreviewComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule ],
-      declarations: [ PreviewComponent ],
+      imports: [FormsModule],
+      declarations: [PreviewComponent],
       providers: [
         { provide: DataService, useValue: dataServiceStub },
         { provide: FlagService, useValue: flagServiceStub }
       ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
+    });
     fixture = TestBed.createComponent(PreviewComponent);
     component = fixture.componentInstance;
     component.settings = new Settings();

@@ -10,10 +10,11 @@ import { PlayScope, Settings } from '../settings';
 import { Stats, Timing } from '../stats';
 
 @Component({
-  // necessary to embed the component in svg
-  selector: '[geo-game]', // eslint-disable-line @angular-eslint/component-selector
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+    // necessary to embed the component in svg
+    selector: '[geo-game]', // eslint-disable-line @angular-eslint/component-selector
+    templateUrl: './game.component.html',
+    styleUrls: ['./game.component.css'],
+    standalone: false
 })
 export class GameComponent implements OnInit {
   @Input() settings: Settings;

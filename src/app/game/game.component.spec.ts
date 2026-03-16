@@ -11,19 +11,15 @@ describe('GameComponent', () => {
   let component: GameComponent;
   let fixture: ComponentFixture<GameComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule ],
-      declarations: [ GameComponent ],
+      imports: [FormsModule],
+      declarations: [GameComponent],
       providers: [
         { provide: DataService, useValue: dataServiceStub },
         { provide: FlagService, useValue: flagServiceStub }
       ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
+    });
     fixture = TestBed.createComponent(GameComponent);
     component = fixture.componentInstance;
     component.settings = new Settings();

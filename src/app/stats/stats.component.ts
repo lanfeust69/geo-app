@@ -15,9 +15,10 @@ class CountryTiming {
 }
 
 @Component({
-  selector: 'geo-stats',
-  templateUrl: './stats.component.html',
-  styleUrls: ['./stats.component.css']
+    selector: 'geo-stats',
+    templateUrl: './stats.component.html',
+    styleUrls: ['./stats.component.css'],
+    standalone: false
 })
 export class StatsComponent implements AfterViewInit, OnInit {
   playScopes: PlayScope[] = allPlayScopes;

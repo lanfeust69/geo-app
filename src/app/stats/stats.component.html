@@ -6,7 +6,9 @@
     <label class="main-item-width">Played on :</label>
     <div style="width: 150px;">
       <mat-select [(value)]="settings.playScope" (selectionChange)="onChanged()">
-        <mat-option *ngFor="let s of playScopes" [value]="s">{{s}}</mat-option>
+        @for (s of playScopes; track s) {
+          <mat-option [value]="s">{{s}}</mat-option>
+        }
       </mat-select>
     </div>
     <label class="main-item-width">Queried on :</label>
@@ -23,41 +25,45 @@
   </div>
 </div>
 <mat-divider></mat-divider>
-<div *ngIf="stats" class="mat-typography">
-  <h4 class="centered">Played {{stats.nbGames}} game{{stats.nbGames &gt; 1 ? 's' : ''}}</h4>
-  <h4 class="centered">
-    Last Game Time : {{getLongTime(stats.gamesTiming.last)}}
-    &nbsp; - &nbsp; Average Time : {{getLongTime(stats.gamesTiming.average)}}
-    &nbsp; - &nbsp; Best Time : {{getLongTime(stats.gamesTiming.min)}}
-    &nbsp; - &nbsp; Worst Time : {{getLongTime(stats.gamesTiming.max)}}
-  </h4>
-  <mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="country">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Country</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.country}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="last">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Last Game</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        {{getShortTime(element.last)}}&nbsp;&nbsp;&nbsp;
-        <span [style.color]="getLastGameColor(element)">{{getLastGameTrend(element)}}</span></mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="average">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Average</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{getShortTime(element.average)}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="min">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Minimum</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{getShortTime(element.min)}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="max">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Maximum</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{getShortTime(element.max)}}</mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="['country', 'last', 'average', 'min', 'max']"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['country', 'last', 'average', 'min', 'max'];"></mat-row>
-  </mat-table>
-</div>
-<div *ngIf="!stats" class="mat-typography centered">
-  No Data
-</div>
+@if (stats) {
+  <div class="mat-typography">
+    <h4 class="centered">Played {{stats.nbGames}} game{{stats.nbGames &gt; 1 ? 's' : ''}}</h4>
+    <h4 class="centered">
+      Last Game Time : {{getLongTime(stats.gamesTiming.last)}}
+      &nbsp; - &nbsp; Average Time : {{getLongTime(stats.gamesTiming.average)}}
+      &nbsp; - &nbsp; Best Time : {{getLongTime(stats.gamesTiming.min)}}
+      &nbsp; - &nbsp; Worst Time : {{getLongTime(stats.gamesTiming.max)}}
+    </h4>
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Country</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.country}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="last">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Last Game</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{getShortTime(element.last)}}&nbsp;&nbsp;&nbsp;
+          <span [style.color]="getLastGameColor(element)">{{getLastGameTrend(element)}}</span></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="average">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Average</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{getShortTime(element.average)}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="min">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Minimum</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{getShortTime(element.min)}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="max">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Maximum</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{getShortTime(element.max)}}</mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="['country', 'last', 'average', 'min', 'max']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['country', 'last', 'average', 'min', 'max'];"></mat-row>
+      </mat-table>
+    </div>
+  }
+  @if (!stats) {
+    <div class="mat-typography centered">
+      No Data
+    </div>
+  }

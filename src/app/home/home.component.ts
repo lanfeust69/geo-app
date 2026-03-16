@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { GameComponent } from '../game/game.component';
@@ -9,14 +9,23 @@ import { SettingsComponent } from '../settings/settings.component';
 import { StatsService } from '../services/stats.service';
 
 import { Settings } from '../settings';
+import { FlagPickerComponent } from '../flag-picker/flag-picker.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'geo-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css'],
-    standalone: false
+  selector: 'geo-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+  imports: [FlagPickerComponent, MatIconButton, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem, RouterLink, GameComponent, PreviewComponent]
 })
 export class HomeComponent implements OnInit {
+  private _statsService = inject(StatsService);
+  private _renderer = inject(Renderer2);
+  private _dialog = inject(MatDialog);
+
   @ViewChild('game') game: GameComponent;
   @ViewChild('preview') preview: PreviewComponent;
   @ViewChild('world') worldElem: ElementRef;
@@ -35,8 +44,6 @@ export class HomeComponent implements OnInit {
   vY = 0;
   vW = this.vW0;
   vH = this.vH0;
-
-  constructor(private _statsService: StatsService, private _renderer: Renderer2, private _dialog: MatDialog) { }
 
   ngOnInit() {
     const fromStorage = localStorage.getItem('settings');
@@ -87,16 +94,16 @@ export class HomeComponent implements OnInit {
 
   highlightCountry(countryCode) {
     if (this.highlighted) {
-      for (let i = 0; i < this.highlighted.length; i++)
-        this._renderer.removeClass(this.highlighted[i], 'highlighted');
+      for (const elem of this.highlighted)
+        this._renderer.removeClass(elem, 'highlighted');
       this.highlighted = null;
     }
     if (!countryCode)
       return;
     const world = this.worldElem.nativeElement as Element;
     this.highlighted = world.querySelectorAll(`.${countryCode}`);
-    for (let i = 0; i < this.highlighted.length; i++)
-      this._renderer.addClass(this.highlighted[i], 'highlighted');
+    for (const elem of this.highlighted)
+      this._renderer.addClass(elem, 'highlighted');
   }
 
   zoomFlag(flag) {

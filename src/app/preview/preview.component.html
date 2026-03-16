@@ -1,14 +1,14 @@
 @if (_country && settings.showNext) {
-  <div class="preview">
-    <p>Next</p>
-    @if (settings.showFlag) {
-      <div [innerHTML]="flagSvg"></div>
-    }
-    @if (settings.showName) {
-      <h2>{{_country.name}}</h2>
-    }
-    @if (settings.showCapital) {
-      <h3>{{_country.capitals.join(' ou ')}}</h3>
-    }
-  </div>
+<div class="preview">
+  <p>Next</p>
+  @if (settings.showFlag) {
+  <div [innerHTML]="flagSvg"></div>
+  }
+  @if (settings.showName) {
+  <h2>{{_country.name}}</h2>
+  }
+  @if (settings.showCapital) {
+  <h3>{{_country.capitals.join(' ou ')}}</h3>
+  }
+</div>
 }

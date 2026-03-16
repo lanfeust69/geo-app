@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 
 import { StatsComponent } from './stats.component';
+import { provideRouter } from '@angular/router';
 
 describe('StatsComponent', () => {
   let component: StatsComponent;
@@ -14,8 +15,10 @@ describe('StatsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, MatCheckboxModule, MatDividerModule, MatIconModule, MatSelectModule, MatTableModule],
-      declarations: [StatsComponent]
+      imports: [FormsModule, MatCheckboxModule, MatDividerModule, MatIconModule, MatSelectModule, MatTableModule, StatsComponent],
+      providers: [
+        provideRouter([])
+      ]
     });
     fixture = TestBed.createComponent(StatsComponent);
     component = fixture.componentInstance;

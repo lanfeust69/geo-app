@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { GameComponent } from './game.component';
@@ -13,8 +13,7 @@ describe('GameComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule],
-      declarations: [GameComponent],
+      imports: [FormsModule, GameComponent],
       providers: [
         { provide: DataService, useValue: dataServiceStub },
         { provide: FlagService, useValue: flagServiceStub }

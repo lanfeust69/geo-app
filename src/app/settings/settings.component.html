@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>Game Settings</h1>
 <div mat-dialog-content class="mat-typography">
   <div class="separator main-setting-row">
-    <label class="main-item-width">Play on</label>
-    <div style="width: 150px;">
+    <label for="scope" class="main-item-width">Play on</label>
+    <div id="scope" style="width: 150px;">
       <mat-select [(value)]="settings.playScope">
         @for (s of playScopes; track s) {
-          <mat-option [value]="s">{{s}}</mat-option>
+        <mat-option [value]="s">{{s}}</mat-option>
         }
       </mat-select>
     </div>
@@ -14,24 +14,32 @@
     <mat-checkbox [(ngModel)]="settings.showNext">Show Next Query</mat-checkbox>
   </div>
   <div class="main-setting-row">
-    <label class="main-item-width">Name</label>
-    <mat-checkbox class="main-item-width" [(ngModel)]="showName">Show</mat-checkbox>
-    <mat-checkbox class="main-item-width" [(ngModel)]="queryName">Query</mat-checkbox>
+    <label for="name" class="main-item-width">Name</label>
+    <div id="name">
+      <mat-checkbox class="main-item-width" [(ngModel)]="showName">Show</mat-checkbox>
+      <mat-checkbox class="main-item-width" [(ngModel)]="queryName">Query</mat-checkbox>
+    </div>
   </div>
   <div class="main-setting-row">
-    <label class="main-item-width">Capital</label>
-    <mat-checkbox class="main-item-width" [(ngModel)]="showCapital">Show</mat-checkbox>
-    <mat-checkbox class="main-item-width" [(ngModel)]="queryCapital">Query</mat-checkbox>
+    <label for="capital" class="main-item-width">Capital</label>
+    <div id="capital">
+      <mat-checkbox class="main-item-width" [(ngModel)]="showCapital">Show</mat-checkbox>
+      <mat-checkbox class="main-item-width" [(ngModel)]="queryCapital">Query</mat-checkbox>
+    </div>
   </div>
   <div class="main-setting-row">
-    <label class="main-item-width">Location</label>
-    <mat-checkbox class="main-item-width" [(ngModel)]="showLocation">Show</mat-checkbox>
-    <mat-checkbox class="main-item-width" [(ngModel)]="queryLocation">Query</mat-checkbox>
+    <label for="location" class="main-item-width">Location</label>
+    <div id="location">
+      <mat-checkbox class="main-item-width" [(ngModel)]="showLocation">Show</mat-checkbox>
+      <mat-checkbox class="main-item-width" [(ngModel)]="queryLocation">Query</mat-checkbox>
+    </div>
   </div>
   <div class="main-setting-row">
-    <label class="main-item-width">Flag</label>
-    <mat-checkbox class="main-item-width" [(ngModel)]="showFlag">Show</mat-checkbox>
-    <mat-checkbox class="main-item-width" [(ngModel)]="queryFlag">Query</mat-checkbox>
+    <label for="flag" class="main-item-width">Flag</label>
+    <div id="flag">
+      <mat-checkbox class="main-item-width" [(ngModel)]="showFlag">Show</mat-checkbox>
+      <mat-checkbox class="main-item-width" [(ngModel)]="queryFlag">Query</mat-checkbox>
+    </div>
   </div>
 </div>
 <div mat-dialog-actions align="center">

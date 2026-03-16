@@ -1,18 +1,23 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 
 import { allPlayScopes, PlayScope, Settings } from '../settings';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-    selector: 'geo-settings',
-    templateUrl: './settings.component.html',
-    styleUrls: ['./settings.component.css'],
-    standalone: false
+  selector: 'geo-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.css'],
+  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatSelect, MatOption, MatCheckbox, FormsModule, MatDialogActions, MatButton, MatDialogClose]
 })
 export class SettingsComponent {
-  playScopes: PlayScope[] = allPlayScopes;
+  settings = inject<Settings>(MAT_DIALOG_DATA);
 
-  constructor(@Inject(MAT_DIALOG_DATA) public settings: Settings) { }
+  playScopes: PlayScope[] = allPlayScopes;
 
   get showName() {
     return this.settings.showName;

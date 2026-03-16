@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,6 +10,7 @@ import { HomeComponent } from './home.component';
 import { DataService } from '../services/data.service';
 import { FlagService } from '../services/flag.service';
 import { dataServiceStub, flagServiceStub } from '../services/service.stubs';
+import { provideRouter } from '@angular/router';
 
 describe('HomeComponent', () => {
     let component: HomeComponent;
@@ -17,11 +18,11 @@ describe('HomeComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, MatDialogModule, MatIconModule, MatMenuModule],
-            declarations: [FlagPickerComponent, GameComponent, HomeComponent],
+            imports: [FormsModule, MatDialogModule, MatIconModule, MatMenuModule, FlagPickerComponent, GameComponent, HomeComponent],
             providers: [
                 { provide: DataService, useValue: dataServiceStub },
-                { provide: FlagService, useValue: flagServiceStub }
+                { provide: FlagService, useValue: flagServiceStub },
+                provideRouter([])
             ]
         });
         fixture = TestBed.createComponent(HomeComponent);

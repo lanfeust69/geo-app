@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { interval } from 'rxjs';
@@ -8,15 +8,22 @@ import { FlagService } from '../services/flag.service';
 import { StatsService } from '../services/stats.service';
 import { PlayScope, Settings } from '../settings';
 import { Stats, Timing } from '../stats';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-    // necessary to embed the component in svg
-    selector: '[geo-game]', // eslint-disable-line @angular-eslint/component-selector
-    templateUrl: './game.component.html',
-    styleUrls: ['./game.component.css'],
-    standalone: false
+  // necessary to embed the component in svg
+  selector: '[geo-game]', // eslint-disable-line @angular-eslint/component-selector
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.css'],
+  imports: [FormsModule]
 })
 export class GameComponent implements OnInit {
+  private _dataService = inject(DataService);
+  private _flagService = inject(FlagService);
+  private _statsService = inject(StatsService);
+  private _sanitizer = inject(DomSanitizer);
+  private _ngZone = inject(NgZone);
+
   @Input() settings: Settings;
   @Output() highlightCountryEvent = new EventEmitter<string>();
   @Output() zoomFlagEvent = new EventEmitter<string>();
@@ -54,13 +61,6 @@ export class GameComponent implements OnInit {
   capitalFound = false;
   locationFound = false;
   flagFound = false;
-
-  constructor(
-    private _dataService: DataService,
-    private _flagService: FlagService,
-    private _statsService: StatsService,
-    private _sanitizer: DomSanitizer,
-    private _ngZone: NgZone) {}
 
   ngOnInit() {
     this._dataService.getCountries().subscribe(countries => {
@@ -259,7 +259,7 @@ export class GameComponent implements OnInit {
   getFilter(): (Country) => boolean {
     switch (this.playScope) {
       case 'All':
-        return (c: Country) => true;
+        return (_c: Country) => true;
       case 'Top 100':
         return (c: Country) => c.rank <= 100;
       case 'Top 50':
@@ -277,7 +277,7 @@ export class GameComponent implements OnInit {
     if (!this.started || !this.isPlaying)
       return;
     const elapsed = Math.floor(new Date().getTime() - this.started.getTime()) / 1000;
-    this.time = `${Math.floor(elapsed / 60)}:${Math.floor(elapsed % 60).toLocaleString(undefined, {minimumIntegerDigits: 2})}`;
+    this.time = `${Math.floor(elapsed / 60)}:${Math.floor(elapsed % 60).toLocaleString(undefined, { minimumIntegerDigits: 2 })}`;
   }
 
   get showFlag() {

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ConnectableObservable, Observable, of, forkJoin } from 'rxjs';
 import { map, publish } from 'rxjs/operators';
 
@@ -15,10 +15,11 @@ export interface SvgMap { [index: string]: FlagData; }
   providedIn: 'root'
 })
 export class FlagService {
+  private _http = inject(HttpClient);
+  private _dataService = inject(DataService);
+
   private _svgs: SvgMap;
   private _getAll: ConnectableObservable<SvgMap>;
-
-  constructor(private _http: HttpClient, private _dataService: DataService) { }
 
   getSvg(countryCode: string, width?: number, height?: number): Observable<string> {
     let replace = 'viewBox';
@@ -39,30 +40,30 @@ export class FlagService {
     if (this._getAll)
       return this._getAll;
     this._getAll = forkJoin([this._http.get('assets/allFlags', { responseType: 'text' }), this._dataService.getCountries()])
-    .pipe(
-      map(result => {
-        const data = result[0];
-        const countries = result[1];
-        const svgs: SvgMap = {};
-        let curSvg = '';
-        let curCountry = '';
-        for (const line of data.split(/\r*\n/)) {
-          const match = /flag_of:(\w+)/.exec(line);
-          if (match) {
-            if (curCountry)
-              svgs[curCountry] = { svg: curSvg, group: countries[curCountry].flagGroup };
-            curCountry = match[1];
-            curSvg = '';
-            continue;
+      .pipe(
+        map(result => {
+          const data = result[0];
+          const countries = result[1];
+          const svgs: SvgMap = {};
+          let curSvg = '';
+          let curCountry = '';
+          for (const line of data.split(/\r*\n/)) {
+            const match = /flag_of:(\w+)/.exec(line);
+            if (match) {
+              if (curCountry)
+                svgs[curCountry] = { svg: curSvg, group: countries[curCountry].flagGroup };
+              curCountry = match[1];
+              curSvg = '';
+              continue;
+            }
+            curSvg += line + '\n';
           }
-          curSvg += line + '\n';
-        }
-        svgs[curCountry] = { svg: curSvg, group: countries[curCountry].flagGroup };
-        this._svgs = svgs;
-        this._getAll = null;
-        return svgs;
-      }),
-      publish()) as ConnectableObservable<SvgMap>;  // need cast until https://github.com/ReactiveX/rxjs/issues/2972 is resolved
+          svgs[curCountry] = { svg: curSvg, group: countries[curCountry].flagGroup };
+          this._svgs = svgs;
+          this._getAll = null;
+          return svgs;
+        }),
+        publish()) as ConnectableObservable<SvgMap>;  // need cast until https://github.com/ReactiveX/rxjs/issues/2972 is resolved
     this._getAll.connect();
     return this._getAll;
   }
@@ -70,7 +71,7 @@ export class FlagService {
   // allow flags from getAll() and getSvg() to be displayed simultaneously : the ids must be unique
   private uniqueClipPath(svg: string): string {
     return svg.replace(/id="([^"]+)"/g, 'id="_$1"')
-      .replace(/url\(#([^\)]+)\)/g, 'url(#_$1)')
-      .replace(/href="#([^\"]+)"/g, 'href="#_$1"');
+      .replace(/url\(#([^)]+)\)/g, 'url(#_$1)')
+      .replace(/href="#([^"]+)"/g, 'href="#_$1"');
   }
 }

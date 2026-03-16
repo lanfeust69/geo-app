@@ -1,11 +1,10 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
-import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
 import { FlagPickerComponent } from './flag-picker/flag-picker.component';
@@ -21,10 +20,7 @@ vi.setConfig({ testTimeout: 15000 });
 describe('AppComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatMenuModule, MatSelectModule, RouterTestingModule],
-            declarations: [
-                AppComponent, FlagPickerComponent, GameComponent, HomeComponent, SettingsComponent
-            ],
+            imports: [FormsModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatMenuModule, MatSelectModule, FlagPickerComponent, GameComponent, HomeComponent, SettingsComponent, AppComponent],
             providers: [
                 { provide: DataService, useValue: dataServiceStub },
                 { provide: FlagService, useValue: flagServiceStub }

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
-import { FlagService, SvgMap } from '../services/flag.service';
+import { FlagService } from '../services/flag.service';
 
 const grid = [
   [1, 2, 3, 4, 77, 78, 79, 80],
@@ -20,18 +20,18 @@ const gridWalk: [number, number][] = [];
 grid.forEach((a, r) => a.forEach((v, c) => gridWalk[v - 1] = [r, c]));
 
 @Component({
-    selector: 'geo-flag-picker',
-    templateUrl: './flag-picker.component.html',
-    styleUrls: ['./flag-picker.component.css'],
-    standalone: false
+  selector: 'geo-flag-picker',
+  templateUrl: './flag-picker.component.html',
+  styleUrls: ['./flag-picker.component.css']
 })
 export class FlagPickerComponent implements OnInit {
+  private _flagService = inject(FlagService);
+  private _sanitizer = inject(DomSanitizer);
+
   @Output() flagClicked = new EventEmitter<string>();
 
   flagsGrid: SafeHtml[][] = Array.from(Array(10), _ => []);
   flagsIds: string[][] = Array.from(Array(10), _ => []);
-
-  constructor(private _flagService: FlagService, private _sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this._flagService.getAll().subscribe(allFlags => {

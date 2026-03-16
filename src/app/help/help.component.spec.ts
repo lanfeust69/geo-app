@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HelpComponent } from './help.component';
 
@@ -8,7 +8,7 @@ describe('HelpComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [HelpComponent]
+      imports: [HelpComponent]
     });
     fixture = TestBed.createComponent(HelpComponent);
     component = fixture.componentInstance;

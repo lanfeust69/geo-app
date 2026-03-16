@@ -1,22 +1,21 @@
-import { Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
-import { interval } from 'rxjs';
 
 import { Countries, Country, DataService } from '../services/data.service';
 import { FlagService } from '../services/flag.service';
-import { StatsService } from '../services/stats.service';
-import { PlayScope, Settings } from '../settings';
-import { Stats, Timing } from '../stats';
+import { Settings } from '../settings';
 
 @Component({
-    // necessary to embed the component in svg
-    selector: '[geo-preview]', // eslint-disable-line @angular-eslint/component-selector
-    templateUrl: './preview.component.html',
-    styleUrls: ['./preview.component.css'],
-    standalone: false
+  // necessary to embed the component in svg
+  selector: '[geo-preview]', // eslint-disable-line @angular-eslint/component-selector
+  templateUrl: './preview.component.html',
+  styleUrls: ['./preview.component.css']
 })
 export class PreviewComponent implements OnInit {
+  private _dataService = inject(DataService);
+  private _flagService = inject(FlagService);
+  private _sanitizer = inject(DomSanitizer);
+
   @Input() settings: Settings;
 
   _country: Country;
@@ -26,11 +25,6 @@ export class PreviewComponent implements OnInit {
   countries: Countries = {};
   flagsReady = false;
   ready = false;
-
-  constructor(
-    private _dataService: DataService,
-    private _flagService: FlagService,
-    private _sanitizer: DomSanitizer) {}
 
   ngOnInit() {
     this._dataService.getCountries().subscribe(countries => {

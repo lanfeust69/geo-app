@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FlagPickerComponent } from './flag-picker.component';
 import { FlagService } from '../services/flag.service';
@@ -10,7 +10,7 @@ describe('FlagPickerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FlagPickerComponent],
+      imports: [FlagPickerComponent],
       providers: [{ provide: FlagService, useValue: flagServiceStub }]
     });
     fixture = TestBed.createComponent(FlagPickerComponent);

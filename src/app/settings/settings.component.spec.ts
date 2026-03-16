@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 
 import { SettingsComponent } from './settings.component';
-import { PlayScope, Settings } from '../settings';
+import { Settings } from '../settings';
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -13,10 +13,10 @@ describe('SettingsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, MatCheckboxModule, MatDialogModule, MatSelectModule],
-      declarations: [SettingsComponent],
+      imports: [FormsModule, MatCheckboxModule, MatDialogModule, MatSelectModule, SettingsComponent],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: new Settings() }]
+        { provide: MAT_DIALOG_DATA, useValue: new Settings() }
+      ]
     });
     fixture = TestBed.createComponent(SettingsComponent);
     component = fixture.componentInstance;

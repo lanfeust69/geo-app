@@ -1,10 +1,16 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit, ViewChild, AfterViewInit, inject } from '@angular/core';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 
 import { StatsService } from '../services/stats.service';
 import { Stats } from '../stats';
 import { allPlayScopes, PlayScope, Settings } from '../settings';
+import { RouterLink } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
+import { MatDivider } from '@angular/material/divider';
 
 class CountryTiming {
   country: string;
@@ -15,12 +21,14 @@ class CountryTiming {
 }
 
 @Component({
-    selector: 'geo-stats',
-    templateUrl: './stats.component.html',
-    styleUrls: ['./stats.component.css'],
-    standalone: false
+  selector: 'geo-stats',
+  templateUrl: './stats.component.html',
+  styleUrls: ['./stats.component.css'],
+  imports: [RouterLink, MatIcon, MatSelect, MatOption, MatCheckbox, FormsModule, MatDivider, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class StatsComponent implements AfterViewInit, OnInit {
+  private _statsService = inject(StatsService);
+
   playScopes: PlayScope[] = allPlayScopes;
 
   settings: Settings = new Settings();
@@ -28,8 +36,6 @@ export class StatsComponent implements AfterViewInit, OnInit {
   dataSource: MatTableDataSource<CountryTiming>;
 
   @ViewChild(MatSort) sort: MatSort;
-
-  constructor(private _statsService: StatsService) { }
 
   ngOnInit() {
     this.settings = this._statsService.getCurrentSettings();

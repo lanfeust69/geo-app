@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -19,8 +19,9 @@ export interface Countries { [index: string]: Country; }
   providedIn: 'root'
 })
 export class DataService {
+  private _http = inject(HttpClient);
+
   private _countries: Countries;
-  constructor(private _http: HttpClient) { }
 
   getCountries(): Observable<Countries> {
     if (this._countries)

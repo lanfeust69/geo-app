@@ -1,15 +1,15 @@
 <div class="flag-table" (keyup.esc)="flagClicked.next('')" (click)="flagClicked.next('')" tabindex="0">
   @if (flagsGrid) {
-    <table>
-      @for (row of flagsGrid; track row; let i = $index) {
-        <tr>
-          @for (flag of row; track flag; let j = $index) {
-            <td>
-              <div [innerHTML]="flag" (click)="onClicked(i, j, $event)"></div>
-            </td>
-          }
-        </tr>
+  <table>
+    @for (row of flagsGrid; track row; let i = $index) {
+    <tr>
+      @for (flag of row; track flag; let j = $index) {
+      <td>
+        <div [innerHTML]="flag" (click)="onClicked(i, j, $event)"></div>
+      </td>
       }
-    </table>
+    </tr>
+    }
+  </table>
   }
 </div>

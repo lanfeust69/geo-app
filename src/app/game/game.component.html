@@ -1,55 +1,55 @@
 <div class="main-form">
   @if (showFlag) {
-    <div [innerHTML]="flagSvg" title="click to enlarge" (click)="zoomFlagEvent.next(country.flag)"></div>
+  <div [innerHTML]="flagSvg" title="click to enlarge" (click)="zoomFlagEvent.next(country.flag)"></div>
   }
   @if (isPlaying && settings.queryFlag && !flagFound) {
-    <button (click)="showFlagPicker()">Pick Flag</button>
+  <button (click)="showFlagPicker()">Pick Flag</button>
   }
   @if (country && (settings.showName || showAll)) {
-    <h2>{{country.name}}</h2>
+  <h2>{{country.name}}</h2>
   }
   @if (isPlaying && settings.queryName) {
+  <div>
+    <label for="inputName">Name</label>
+    <input type="text" #inputNameElem id="inputName" name="inputName" [(ngModel)]="inputName"
+      (keyup.enter)="checkName()" (blur)="checkName()" />
+    <input type="checkbox" disabled [(ngModel)]="nameFound" />
+  </div>
+  }
+  @if (country && (settings.showCapital || showAll)) {
+  <h3>{{country.capitals.join(' ou ')}}</h3>
+  }
+  @if (isPlaying && settings.queryCapital) {
+  <div>
+    <label for="inputCapital">Capital</label>
+    <input type="text" #inputCapitalElem id="inputCapital" name="inputCapital" [(ngModel)]="inputCapital"
+      (keyup.enter)="checkCapital()" (blur)="checkCapital()" />
+    <input type="checkbox" disabled [(ngModel)]="capitalFound" />
+  </div>
+  }
+  @if (isPlaying && settings.queryLocation && (settings.queryName || settings.queryCapital || settings.queryFlag)) {
+  <label>
+    <input type="checkbox" disabled [(ngModel)]="locationFound" />Located
+  </label>
+  }
+  <div class="play-buttons">
+    @if (isPlaying) {
+    <button (click)="help()">Help</button>
+    }
+    @if (isPlaying) {
+    <button (click)="explore()">Explore</button>
+    }
+    @if (ready && !isPlaying) {
     <div>
-      <label>Name</label>
-      <input type="text" #inputNameElem id="inputName" name="inputName" [(ngModel)]="inputName"
-        (keyup.enter)="checkName()" (blur)="checkName()" />
-        <input type="checkbox" disabled [(ngModel)]="nameFound" />
-      </div>
-    }
-    @if (country && (settings.showCapital || showAll)) {
-      <h3>{{country.capitals.join(' ou ')}}</h3>
-    }
-    @if (isPlaying && settings.queryCapital) {
-      <div>
-        <label>Capital</label>
-        <input type="text" #inputCapitalElem id="inputCapital" name="inputCapital" [(ngModel)]="inputCapital"
-          (keyup.enter)="checkCapital()" (blur)="checkCapital()" />
-          <input type="checkbox" disabled [(ngModel)]="capitalFound" />
-        </div>
-      }
-      @if (isPlaying && settings.queryLocation && (settings.queryName || settings.queryCapital || settings.queryFlag)) {
-        <label>
-          <input type="checkbox" disabled [(ngModel)]="locationFound" />Located
-        </label>
-      }
-      <div class="play-buttons">
-        @if (isPlaying) {
-          <button (click)="help()">Help</button>
-        }
-        @if (isPlaying) {
-          <button (click)="explore()">Explore</button>
-        }
-        @if (ready && !isPlaying) {
-          <div>
-            <button (click)="play()">Play</button>
-          </div>
-        }
-      </div>
-      <div>
-        {{nbHelp}} help{{nbHelp &gt; 1 ? 's' : ''}}, {{nbErrors}} error{{nbErrors &gt; 1 ? 's' : ''}}
-      </div>
-      @if (isPlaying) {
-        <div>Remaining : {{sumScores}}</div>
-      }
-      <div>{{time}}</div>
+      <button (click)="play()">Play</button>
     </div>
+    }
+  </div>
+  <div>
+    {{nbHelp}} help{{nbHelp &gt; 1 ? 's' : ''}}, {{nbErrors}} error{{nbErrors &gt; 1 ? 's' : ''}}
+  </div>
+  @if (isPlaying) {
+  <div>Remaining : {{sumScores}}</div>
+  }
+  <div>{{time}}</div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { FlagService } from '../services/flag.service';
@@ -22,6 +22,7 @@ grid.forEach((a, r) => a.forEach((v, c) => gridWalk[v - 1] = [r, c]));
 @Component({
   selector: 'geo-flag-picker',
   templateUrl: './flag-picker.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./flag-picker.component.css']
 })
 export class FlagPickerComponent implements OnInit {

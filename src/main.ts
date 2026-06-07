@@ -1,7 +1,7 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 
 import { environment } from './environments/environment';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { provideRouter, Routes } from '@angular/router';
 import { HomeComponent } from './app/home/home.component';
 import { StatsComponent } from './app/stats/stats.component';
@@ -31,7 +31,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(BrowserModule, FormsModule, MatButtonModule, MatCheckboxModule, MatDialogModule, MatDividerModule, MatIconModule, MatMenuModule, MatSelectModule, MatSortModule, MatTableModule),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
     provideRouter(routes)
   ]
 })

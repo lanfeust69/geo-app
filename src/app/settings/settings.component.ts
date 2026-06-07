@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 
 import { allPlayScopes, PlayScope, Settings } from '../settings';
@@ -12,6 +12,7 @@ import { MatButton } from '@angular/material/button';
   selector: 'geo-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatSelect, MatOption, MatCheckbox, FormsModule, MatDialogActions, MatButton, MatDialogClose]
 })
 export class SettingsComponent {

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { Countries, Country, DataService } from '../services/data.service';
@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
   selector: '[geo-game]', // eslint-disable-line @angular-eslint/component-selector
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FormsModule]
 })
 export class GameComponent implements OnInit {

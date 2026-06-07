@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 
@@ -24,6 +24,7 @@ class CountryTiming {
   selector: 'geo-stats',
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterLink, MatIcon, MatSelect, MatOption, MatCheckbox, FormsModule, MatDivider, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class StatsComponent implements AfterViewInit, OnInit {

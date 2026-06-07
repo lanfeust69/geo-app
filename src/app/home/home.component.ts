@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { GameComponent } from '../game/game.component';
@@ -19,6 +19,7 @@ import { RouterLink } from '@angular/router';
   selector: 'geo-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlagPickerComponent, MatIconButton, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem, RouterLink, GameComponent, PreviewComponent]
 })
 export class HomeComponent implements OnInit {

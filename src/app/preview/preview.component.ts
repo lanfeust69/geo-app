@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { Countries, Country, DataService } from '../services/data.service';
@@ -9,6 +9,7 @@ import { Settings } from '../settings';
   // necessary to embed the component in svg
   selector: '[geo-preview]', // eslint-disable-line @angular-eslint/component-selector
   templateUrl: './preview.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./preview.component.css']
 })
 export class PreviewComponent implements OnInit {
